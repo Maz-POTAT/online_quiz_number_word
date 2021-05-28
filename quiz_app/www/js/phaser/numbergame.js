@@ -306,7 +306,7 @@ class NumberGameScreen extends Phaser.Scene{
         this.minusOperator.setVisible(false);
         this.multiOperator.setVisible(false);
         this.diviOperator.setVisible(false);
-        this.waitingText = this.add.text(540, 1380, 'Waiting for server...', { fixedWidth: 700, fixedHeight: 120, align:'center' })
+        this.waitingText = this.add.text(540, 1380, 'Rakip bekleniyor...', { fixedWidth: 700, fixedHeight: 120, align:'center' })
         .setStyle({
             fontSize: '64px',
             fontFamily: 'RR',

@@ -45,7 +45,7 @@ class BattleWaitScreen extends Phaser.Scene{
             align: "center"
         }).setOrigin(0.5, 0.5);
 
-        this.oppoAvatar = this.add.image(540,1080,'EmptyUser');   
+        this.oppoAvatar = this.add.image(540,1080,'UserAvatar');   
         this.oppoWaiting = this.add.text(540, 1080, 'RAKİP\nBEKLENİYOR', {
             fontFamily: 'RR',
             fontWeight: 'bold',

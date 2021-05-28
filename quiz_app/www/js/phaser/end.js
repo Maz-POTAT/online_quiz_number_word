@@ -251,31 +251,31 @@ class EndScreen extends Phaser.Scene{
                     }
                 }
                 
-                let getText = 'GET ×2';
+                let getText = 'AL ×2';
                 let coinText = cur_point;
                 let adsPos = 1015;
                 if( game_type == 'stage' ){
-                    getText = 'GET ×3';
+                    getText = 'AL ×3';
                 }
                 else if( game_type == 'daily'){
-                    getText = 'GET ×4';
+                    getText = 'AL ×4';
                 }
                 else if( game_type == 'battle'){
                     if(game_state == 'remain_alone' || winner_name_list[0] == userData.userName)
-                        getText = 'GET ×5';
+                        getText = 'AL ×5';
                     else
-                        getText = 'GET\nBACK';
+                        getText = 'AL\nBACK';
                 } else if (game_type == "tournament"){
                     adsPos = 1080;
                     if(game_state == 'remain_alone' || winner_name_list[0] == userData.userName){
-                        getText = 'GET ×3';
+                        getText = 'AL ×3';
                     }
                     else
-                        getText = 'GET\nBACK';
+                        getText = 'AL\nBACK';
                 } else if (game_type == "passion") {
                     coinText = cur_prize;
                     if(cur_prize == 0)
-                        getText2 = 'GET\n1 COIN';
+                        getText2 = 'AL\n1 COIN';
                 }
 
                 if(game_type != "passion" && game_type != "daily"){

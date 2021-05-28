@@ -97,17 +97,17 @@ class LoginScreen extends Phaser.Scene{
             })
         .setOrigin(0.5,0.5);
 
-        this.userNameText = this.add.text(210, 495, 'Kullanıcı', { fixedWidth: 200, fixedHeight: 32 })
+        this.userNameText = this.add.text(210, 495, 'Kullanıcı', { fixedWidth: 400, fixedHeight: 50 })
         .setStyle({
-            fontSize: '28px',
+            fontSize: '36px',
             fontFamily: 'RR',
             fontWeight: 'bold',
             color: '#ffffff',
         })
         .setOrigin(0,0.5);
 
-        this.passwordImage = this.add.image(540,700,'InputBack');
-        this.password = this.add.rexInputText(540, 700, 620, 70, 
+        this.passwordImage = this.add.image(540,750,'InputBack');
+        this.password = this.add.rexInputText(540, 750, 620, 70, 
             {
                 text: window.localStorage.getItem('Password'),
                 type:'password',
@@ -116,18 +116,18 @@ class LoginScreen extends Phaser.Scene{
                 color: '#000000',
             })
         .setOrigin(0.5,0.5);
-        this.passwordText = this.add.text(210, 635, 'Şifre', { fixedWidth: 200, fixedHeight: 32 })
+        this.passwordText = this.add.text(210, 685, 'Şifre', { fixedWidth: 400, fixedHeight: 50 })
         .setStyle({
-            fontSize: '28px',
+            fontSize: '36px',
             fontFamily: 'RR',
             fontWeight: 'bold',
             color: '#ffffff',
         })
         .setOrigin(0,0.5);
 
-        this.forgotText = this.add.text(860, 765, 'Şifremi Unuttum?', { fixedWidth: 250, fixedHeight: 32 })
+        this.forgotText = this.add.text(860, 1060, 'Şifremi Unuttum?', { fixedHeight: 50 })
         .setStyle({
-            fontSize: '28px',
+            fontSize: '36px',
             fontFamily: 'RR',
             fontWeight: 'bold',
             color: '#ffffffa0',
@@ -139,7 +139,7 @@ class LoginScreen extends Phaser.Scene{
             Client.forgot(this.userName.text);
         });
 
-        this.loginButton = this.add.image(540,860,'Login');
+        this.loginButton = this.add.image(540,960,'Login');
         this.loginButton.setInteractive().on('pointerdown', () => {
             if(sound_enable)
                 this.button_audio.play();
@@ -147,48 +147,48 @@ class LoginScreen extends Phaser.Scene{
             Client.login(this.userName.text, this.password.text);
         });
 
-        this.withText = this.add.text(540, 1020, 'or\nsign up with', { fixedWidth: 200, fixedHeight: 64, align:'center' })
-        .setStyle({
-            fontSize: '28px',
-            fontFamily: 'RR',
-            fontWeight: 'bold',
-            color: '#000000',
-        })
-        .setOrigin(0.5,0.5);
+        // this.withText = this.add.text(540, 1020, 'or\nsign up with', { fixedWidth: 200, fixedHeight: 64, align:'center' })
+        // .setStyle({
+        //     fontSize: '28px',
+        //     fontFamily: 'RR',
+        //     fontWeight: 'bold',
+        //     color: '#000000',
+        // })
+        // .setOrigin(0.5,0.5);
 
         // this.facebookButton = this.add.image(440,1170,'Facebook');
         // this.facebookButton.setInteractive().on('pointerdown', () => {
         // });
 
-        this.googleButton = this.add.image(540,1170,'Google');
-        this.googleButton.setInteractive().on('pointerdown', () => {
-            if(sound_enable)
-                this.button_audio.play();
-            window.plugins.googleplus.login(
-                {
-                  'webClientId': '540253986128-8fhn5o5lb8ogcsnii9tiqqedkd5413jt.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-                  'offline': false, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
-                },
-                function (obj) {
-                    Client.google(obj);
-                },
-                function (msg) {
-                    toast_error(this, "Google Giriş yapıalamadı,\nyeniden deneyin!");
-                }
-            );
-        });
+        // this.googleButton = this.add.image(540,1170,'Google');
+        // this.googleButton.setInteractive().on('pointerdown', () => {
+        //     if(sound_enable)
+        //         this.button_audio.play();
+        //     window.plugins.googleplus.login(
+        //         {
+        //           'webClientId': '540253986128-8fhn5o5lb8ogcsnii9tiqqedkd5413jt.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+        //           'offline': false, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+        //         },
+        //         function (obj) {
+        //             Client.google(obj);
+        //         },
+        //         function (msg) {
+        //             toast_error(this, "Google Giriş yapıalamadı,\nyeniden deneyin!");
+        //         }
+        //     );
+        // });
 
 
-        this.usingText = this.add.text(540, 1430, 'or\nsign up using', { fixedWidth: 200, fixedHeight: 64, align:'center' })
+        this.usingText = this.add.text(540, 1340, 'Eğer\nüye değilseniz', { fixedWidth: 500, fixedHeight: 100, align:'center' })
         .setStyle({
-            fontSize: '28px',
+            fontSize: '36px',
             fontFamily: 'RR',
             fontWeight: 'bold',
             color: '#000000',
         })
         .setOrigin(0.5,0.5);
 
-        this.registerButton = this.add.image(540,1520,'SignUp');
+        this.registerButton = this.add.image(540,1420,'SignUp');
         this.registerButton.setInteractive().on('pointerdown', () => {
             if(sound_enable)
                 this.button_audio.play();
