@@ -156,9 +156,9 @@ class WordGameScreen extends Phaser.Scene{
             if(sound_enable)
                 this.lose_audio.play();
             if(this.result.length >=5)
-                toast_error(this, 'There is no Word on\ndictionary as you write!');
+                toast_error(this, 'Bu kelime sözlüğümüzde\nkayıtlı değil!');
             else 
-                toast_error(this, 'You must find a word\nwith at least 5 letters\nto pass stage!');
+                toast_error(this, 'En az 5 harften oluşan\ngeçerli bir kelime\nbulmalısınız!');
             return;
         }
         
@@ -176,8 +176,9 @@ class WordGameScreen extends Phaser.Scene{
             this.time.removeEvent(this.timer);
             if(game_type == "stage")
                 cur_point += this.point;
-            else
-                cur_point = cur_point>=10?1:0 + this.point>=10?1:0 + 1;
+            else{
+                cur_point = (cur_point>=10?1:0) + (this.point>=10?1:0) + 1;
+            }
             if(game_type == "stage"){
                 if(bPass)
                     Client.stage_end();

@@ -41,7 +41,7 @@ class EndScreen extends Phaser.Scene{
     
             if(game_type == "stage")
             {
-                this.play_again = this.add.image(540,1320,'YENİDEN OYNA');
+                this.play_again = this.add.image(540,1320,'PlayAgain');
                 this.play_again.setInteractive().on('pointerdown', () => {
                     if(sound_enable)
                         this.button_audio.play();
@@ -50,7 +50,7 @@ class EndScreen extends Phaser.Scene{
             }
             if(game_type == "daily")
             {
-                this.play_again = this.add.image(540,1320,'YENİDEN OYNA');
+                this.play_again = this.add.image(540,1320,'PlayAgain');
                 this.play_again.setInteractive().on('pointerdown', () => {
                     if(sound_enable)
                         this.button_audio.play();
@@ -322,6 +322,14 @@ class EndScreen extends Phaser.Scene{
                             multiplier = 4;
                         }        
                         Client.prize(0, coinText * multiplier, 0);
+                        this.addedText = this.add.text(540,adsPos, 'You received ' + (coinText* multiplier) + ' points', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                        .setStyle({
+                            fontSize: '80px',
+                            fontFamily: 'RR',
+                            fontWeight: 'bold',
+                            color: '#ffffff',
+                        })
+                        .setOrigin(0.5,0.5);
                     });
             
                     this.pointText = this.add.text(400,adsPos, coinText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
@@ -363,6 +371,14 @@ class EndScreen extends Phaser.Scene{
                         this.getCoinText.destroy();
                         multiplier = 3;
                         Client.prize(0, 0, coinText * multiplier);
+                        this.addedText = this.add.text(540,adsPos, 'You received ' + (coinText* multiplier) + ' coins', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                        .setStyle({
+                            fontSize: '80px',
+                            fontFamily: 'RR',
+                            fontWeight: 'bold',
+                            color: '#ffffff',
+                        })
+                        .setOrigin(0.5,0.5);
                     });
         
                     this.coinText = this.add.text(400,adsPos, coinText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
@@ -393,7 +409,7 @@ class EndScreen extends Phaser.Scene{
         
                 if(game_type == "stage")
                 {
-                    this.next_stage = this.add.image(540,1495,'YENİDEN OYNA');
+                    this.next_stage = this.add.image(540,1495,'NextStage');
                     this.next_stage.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();
@@ -403,7 +419,7 @@ class EndScreen extends Phaser.Scene{
 
                 if(game_type == "daily")
                 {
-                    this.next_stage = this.add.image(540,1495,'YENİDEN OYNA');
+                    this.next_stage = this.add.image(540,1495,'PlayAgain');
                     this.next_stage.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();

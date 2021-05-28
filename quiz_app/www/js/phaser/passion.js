@@ -22,13 +22,6 @@ class PassionScreen extends Phaser.Scene{
     }
 
     create() {
-        AdMob.showInterstitial();
-        AdMob.prepareInterstitial({
-            adId: admobid.interstitial,
-            autoShow:false,
-            isTesting: true,
-        });
-
         this.button_audio = this.sound.add('button');
         this.passion_flower = this.add.image(540,600,'Passion');
         let angle = Number.parseInt(Math.random()*360);
@@ -59,6 +52,12 @@ class PassionScreen extends Phaser.Scene{
     }
 
     turn(){
+        AdMob.showInterstitial();
+        AdMob.prepareInterstitial({
+            adId: admobid.interstitial,
+            autoShow:false,
+            isTesting: true,
+        });
         this.turnButton.disableInteractive().setAlpha(0.5);
         this.mainPageButton.disableInteractive().setAlpha(0.5);
         this.bTurn = true;

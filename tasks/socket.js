@@ -587,6 +587,7 @@ const exportedMethods = {
                         let joinList = [];
                         let resData = [];
                         for ( i in roomList) {
+                            if(i>=3) break;
                             const room = roomList[i];
                             const data = {
                                 id: String(room._id),
@@ -720,8 +721,15 @@ const exportedMethods = {
                 //REQUIRE INFO: data.waituser, data.inviteuser
                 console.log('invite_request is received');
                 if (players[data.inviteuser] === undefined) {
-                    console.log('invite user is not connected.');
-                    socket.emit('invite_request', {result: false, to: data.inviteuser, error: 'Çağırdığınız kullanıcı\nonline değil.'});
+                    users.getUserByName(data.inviteuser).then((user) => {
+                        if(!user){
+                            console.log('invite user is not exists.');
+                            socket.emit('invite_request', {result: false, to: data.inviteuser, error: 'Böyle bir\nkullanıcı yok.'});
+                        } else {
+                            console.log('invite user is not connected.');
+                            socket.emit('invite_request', {result: false, to: data.inviteuser, error: 'Çağırdığınız kullanıcı\nonline değil.'});
+                        }
+                    });
                 } else if (io.sockets.sockets.get(players[data.inviteuser]).handshake.session.status != 'Idle') {
                     console.log('invite user is playing game now.');
                     socket.emit('invite_request', {result: false, to: data.inviteuser, error: 'Invite user is playing now.'});

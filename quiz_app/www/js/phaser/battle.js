@@ -50,6 +50,10 @@ class BattleScreen extends Phaser.Scene{
         this.inviteButton.setInteractive().on('pointerdown', () => {
             if(sound_enable)
                 this.button_audio.play();
+            if(this.userName.text == ''){
+                toast_error(this, 'Lütfen bir kullanıcı\nadı yazınız.');
+                return;
+            }
             Client.invite_request(this.userName.text);
         });
 

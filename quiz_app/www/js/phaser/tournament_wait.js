@@ -20,7 +20,7 @@ class TournamentWaitScreen extends Phaser.Scene{
         this.waiting_audio = this.sound.add('waiting');
         if(sound_enable)
             this.waiting_audio.play();
-        this.startText = this.add.text(540, 400, 'TOURNAMENT START', {
+        this.startText = this.add.text(540, 400, 'Turnuva başlıyor', {
             fontFamily: 'RR',
             fontWeight: 'bold',
             fontSize: '80px',
@@ -40,7 +40,7 @@ class TournamentWaitScreen extends Phaser.Scene{
         })
         .setOrigin(0.5,0.5);
 
-        this.detailText = this.add.text(540, 960, 'TOURNAMENT DETAILS', {
+        this.detailText = this.add.text(540, 960, 'Turnuva detayları', {
             fontFamily: 'RR',
             fontWeight: 'bold',
             fontSize: '80px',
@@ -52,9 +52,9 @@ class TournamentWaitScreen extends Phaser.Scene{
         for(let i=0; i<tournament_list.length; i++){
             if(tournament_list[i].id == room_id){
                 let time = new Date(tournament_list[i].startDateTime);
-                this.text = this.add.text(540,1170, "START TIME: " + getDateTimeString(time) + "\n" + "JOINING FEE: " + tournament_list[i].joiningFee + " COIN\nPRIZE: " + tournament_list[i].prize + " COIN", { fixedWidth: 800, fixedHeight: 200, align:'center' })
+                this.text = this.add.text(540,1170, "BAŞLANGIÇ: " + getDateTimeString(time) + "\n" + "KATILIM JETONU: " + tournament_list[i].joiningFee + " TOKEN\nKATILIM PUANI: " + 100 + " PUANI\nÖDÜL: " + tournament_list[i].prize + " PUANI", { fixedWidth: 800, fixedHeight: 200, align:'center' })
                 .setStyle({
-                    fontSize: '48px',
+                    fontSize: '40px',
                     fontFamily: 'RR',
                     fontWeight: 'bold',
                     color: '#ffffff',
