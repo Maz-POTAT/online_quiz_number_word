@@ -30,7 +30,7 @@ class HomeScreen extends Phaser.Scene{
         this.logo = this.add.image(540,120,'Logo');
 
         this.coin = this.add.image(820,120,'Coin');
-        this.coinText = this.add.text(820,140, userData.coin, { fixedWidth: 80, fixedHeight: 50 })
+        this.coinText = this.add.text(820,140, userData.coin, { fixedWidth: 200, fixedHeight: 50 })
             .setOrigin(0.5,0.5)
             .setStyle({
                 fontSize: '48px',
@@ -39,7 +39,7 @@ class HomeScreen extends Phaser.Scene{
                 align: 'center',
             });
         this.life = this.add.image(260,120,'Life');
-        this.lifeText = this.add.text(260,140, userData.heart, { fixedWidth: 80, fixedHeight: 50 })
+        this.lifeText = this.add.text(260,140, userData.heart, { fixedWidth: 200, fixedHeight: 50 })
             .setOrigin(0.5,0.5)
             .setStyle({
                 fontSize: '48px',

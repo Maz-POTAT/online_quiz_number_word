@@ -17,6 +17,13 @@ class TournamentScreen extends Phaser.Scene{
     }
 
     create() {
+        AdMob.showInterstitial();
+        AdMob.prepareInterstitial({
+            adId: admobid.interstitial,
+            autoShow:false,
+            isTesting: true,
+        });
+    
         this.button_audio = this.sound.add('button');
         this.main_page = this.add.image(540,1500,'MainPage');
         this.main_page.setInteractive().on('pointerdown', () => {

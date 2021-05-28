@@ -41,11 +41,20 @@ class EndScreen extends Phaser.Scene{
     
             if(game_type == "stage")
             {
-                this.play_again = this.add.image(540,1320,'PlayAgain');
+                this.play_again = this.add.image(540,1320,'YENİDEN OYNA');
                 this.play_again.setInteractive().on('pointerdown', () => {
                     if(sound_enable)
                         this.button_audio.play();
                     Client.stage_start();
+                });
+            }
+            if(game_type == "daily")
+            {
+                this.play_again = this.add.image(540,1320,'YENİDEN OYNA');
+                this.play_again.setInteractive().on('pointerdown', () => {
+                    if(sound_enable)
+                        this.button_audio.play();
+                    Client.daily_start();
                 });
             }
 
@@ -95,9 +104,18 @@ class EndScreen extends Phaser.Scene{
                         })
                         .setOrigin(0.5,0.5);
                     } else {
-                        this.earnedPointText = this.add.text(540, 860, 'You have passed', { align:'center' })
+                        this.earnedPointText = this.add.text(380, 860, 'Kazandığınız\nJeton', { fixedHeight: 120, align:'center' })
                         .setStyle({
-                            fontSize: '50px',
+                            fontSize: '36px',
+                            fontFamily: 'RR',
+                            fontWeight: 'bold',
+                            color: '#ffffff',
+                        })
+                        .setOrigin(0.5,0.5);
+                        this.pointBack = this.add.image(590,840,'Orange');
+                        this.pointText = this.add.text(590,840, cur_point>=10 ? 1:0, { fixedWidth: 160, fixedHeight: 60, align:'center' })
+                        .setStyle({
+                            fontSize: '60px',
                             fontFamily: 'RR',
                             fontWeight: 'bold',
                             color: '#ffffff',
@@ -258,7 +276,7 @@ class EndScreen extends Phaser.Scene{
                     getText = 'AL ×3';
                 }
                 else if( game_type == 'daily'){
-                    getText = 'AL ×4';
+                    getText = 'AL ×2';
                 }
                 else if( game_type == 'battle'){
                     if(game_state == 'remain_alone' || winner_name_list[0] == userData.userName)
@@ -375,13 +393,24 @@ class EndScreen extends Phaser.Scene{
         
                 if(game_type == "stage")
                 {
-                    this.next_stage = this.add.image(540,1495,'NextStage');
+                    this.next_stage = this.add.image(540,1495,'YENİDEN OYNA');
                     this.next_stage.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();
                         Client.stage_start();
                     });
                 }
+
+                if(game_type == "daily")
+                {
+                    this.next_stage = this.add.image(540,1495,'YENİDEN OYNA');
+                    this.next_stage.setInteractive().on('pointerdown', () => {
+                        if(sound_enable)
+                            this.button_audio.play();
+                        Client.daily_start();
+                    });
+                }
+
             }
         }
 

@@ -73,9 +73,9 @@ class RegisterScreen extends Phaser.Scene{
             })
         .setOrigin(0.5,0.5);
 
-        this.userNameText = this.add.text(210, 535, 'Kullanıcı', { fixedWidth: 200, fixedHeight: 32 })
+        this.userNameText = this.add.text(210, 535, 'Kullanıcı adı', { fixedWidth: 400, fixedHeight: 50 })
         .setStyle({
-            fontSize: '28px',
+            fontSize: '36px',
             fontFamily: 'RR',
             fontWeight: 'bold',
             color: '#ffffff',
@@ -92,9 +92,9 @@ class RegisterScreen extends Phaser.Scene{
             color: '#000000',
         })
         .setOrigin(0.5,0.5);
-        this.emailText = this.add.text(210, 685, 'Email', { fixedWidth: 200, fixedHeight: 32 })
+        this.emailText = this.add.text(210, 685, 'Email', { fixedWidth: 400, fixedHeight: 50 })
         .setStyle({
-            fontSize: '28px',
+            fontSize: '36px',
             fontFamily: 'RR',
             fontWeight: 'bold',
             color: '#ffffff',
@@ -111,9 +111,9 @@ class RegisterScreen extends Phaser.Scene{
                 color: '#000000',
             })
         .setOrigin(0.5,0.5);
-        this.passwordText = this.add.text(210, 835, 'Şifre', { fixedWidth: 200, fixedHeight: 32 })
+        this.passwordText = this.add.text(210, 835, 'Şifre', { fixedWidth: 200, fixedHeight: 50 })
         .setStyle({
-            fontSize: '28px',
+            fontSize: '36px',
             fontFamily: 'RR',
             fontWeight: 'bold',
             color: '#ffffff',
@@ -122,16 +122,16 @@ class RegisterScreen extends Phaser.Scene{
 
         this.registerButton = this.add.image(540,1300,'SignUp1');
         this.registerButton.setInteractive().on('pointerdown', () => {
-            if(this.userName.text == '' || this.password.text == ''){
-                toast_error(this, 'Please fill username\nand password.');
-                return;
-            }
             if(sound_enable)
                 this.button_audio.play();
+            if(this.userName.text == '' || this.password.text == ''){
+                toast_error(this, 'Kullanıcı adı veya\nşifre bölümünü boş\nbıraktınız.\nLütfen kontrol edin.');
+                return;
+            }
             Client.register(this.userName.text, this.email.text, this.password.text, this.avatar);
         });
 
-        this.privacyText = this.add.text(540, 1120, 'Üye olduğunuzda,\n\nile\n\nni kabul etmiş\nsayılırsınız.', { fixedWidth: 800, fixedHeight: 300 })
+        this.privacyText = this.add.text(540, 1120, 'Üye olduğunuzda,\n\nile\n\nkabul etmiş\nsayılırsınız.', { fixedWidth: 800, fixedHeight: 300 })
         .setStyle({
             fontSize: '36px',
             fontFamily: 'RR',
@@ -141,7 +141,7 @@ class RegisterScreen extends Phaser.Scene{
         })
         .setOrigin(0.5,0.5);
 
-        this.privacyLink = this.add.text(540, 1035, '"Koşullar ve Şartlar"', { fixedWidth: 800, fixedHeight: 50 })
+        this.privacyLink = this.add.text(540, 1035, 'Koşullar ve Şartlar', { fixedWidth: 800, fixedHeight: 50 })
         .setStyle({
             fontSize: '36px',
             fontFamily: 'RR',
@@ -153,7 +153,7 @@ class RegisterScreen extends Phaser.Scene{
             var ref = window.open(encodeURI('http://zafgames.online/kello-gizlilik-sozlesmesi/'), '_blank', 'location=yes');
         });
 
-        this.termLink = this.add.text(540, 1115, '"Gizlilik Sözleşmesi"', { fixedWidth: 800, fixedHeight: 50 })
+        this.termLink = this.add.text(540, 1115, 'Gizlilik Sözleşmesini', { fixedWidth: 800, fixedHeight: 50 })
         .setStyle({
             fontSize: '36px',
             fontFamily: 'RR',

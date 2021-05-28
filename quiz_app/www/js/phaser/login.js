@@ -125,9 +125,9 @@ class LoginScreen extends Phaser.Scene{
         })
         .setOrigin(0,0.5);
 
-        this.forgotText = this.add.text(860, 1060, 'Şifremi Unuttum?', { fixedHeight: 50 })
+        this.forgotText = this.add.text(860, 1080, 'Şifremi Unuttum?', { fixedHeight: 80 })
         .setStyle({
-            fontSize: '36px',
+            fontSize: '48px',
             fontFamily: 'RR',
             fontWeight: 'bold',
             color: '#ffffffa0',
@@ -144,6 +144,10 @@ class LoginScreen extends Phaser.Scene{
             if(sound_enable)
                 this.button_audio.play();
             console.log('login_request');
+            if(this.userName.text == '' || this.password.text == ''){
+                toast_error(this, 'Kullanıcı adı veya\nşifre bölümünü boş\nbıraktınız.\nLütfen kontrol edin.');
+                return;
+            }
             Client.login(this.userName.text, this.password.text);
         });
 

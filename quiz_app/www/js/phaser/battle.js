@@ -18,6 +18,13 @@ class BattleScreen extends Phaser.Scene{
     }
 
     create() {
+        AdMob.showInterstitial();
+        AdMob.prepareInterstitial({
+            adId: admobid.interstitial,
+            autoShow:false,
+            isTesting: true,
+        });
+    
         this.button_audio = this.sound.add('button');
         this.userNameImage = this.add.image(540,560,'InputBack');
         this.userName = this.add.rexInputText(540, 560, 620, 70, 
