@@ -213,6 +213,13 @@ class EndScreen extends Phaser.Scene{
                 else if( game_type == "battle" || game_type == "tournament"){
                     if(game_state != 'remain_alone'){
                         let bWin = winner_name_list[0] == userData.userName;
+                        if(!bWin)
+                        {
+                            if(game_type == "battle")
+                                cur_point = 50;
+                            else
+                                cur_point = 100;
+                        }
                         this.gameFinishText = this.add.text(540,game_type == "battle" ? 700 : 890, bWin ? 'KAZANDIN!' : 'KAYBETTİN!', { fixedWidth: 700, fixedHeight: 120, align:'center' })
                         .setStyle({
                             fontSize: '120px',
@@ -222,7 +229,7 @@ class EndScreen extends Phaser.Scene{
                         })
                         .setOrigin(0.5,0.5);
                         if( game_type == "battle"){
-                            this.yourPointText = this.add.text(370,280, 'YOU', { fixedWidth: 700, fixedHeight: 120, align:'center' })
+                            this.yourPointText = this.add.text(370,280, 'SEN', { fixedWidth: 700, fixedHeight: 120, align:'center' })
                             .setStyle({
                                 fontSize: '120px',
                                 fontFamily: 'RR',
@@ -239,7 +246,7 @@ class EndScreen extends Phaser.Scene{
                                 color: '#ffffff',
                             })
                             .setOrigin(0.5,0.5);
-                            this.oppoPointText = this.add.text(710,280, 'OPP', { fixedWidth: 700, fixedHeight: 120, align:'center' })
+                            this.oppoPointText = this.add.text(710,280, 'RAKİP', { fixedWidth: 700, fixedHeight: 120, align:'center' })
                             .setStyle({
                                 fontSize: '120px',
                                 fontFamily: 'RR',
@@ -258,7 +265,7 @@ class EndScreen extends Phaser.Scene{
                             .setOrigin(0.5,0.5);
                         }
                     } else {
-                        this.gameFinishText = this.add.text(540, 500, game_type == 'battle' ? 'Opponent quit\ngame and\nyou have win.' : 'Everybody quit\ngame and\nyou have win.', { fixedWidth: 700, fixedHeight: 300, align:'center' })
+                        this.gameFinishText = this.add.text(540, 500, game_type == 'battle' ? 'Rakibiniz oyundan\nçıktı ve siz\nkazandınız.' : 'Turnuvadaki tüm\nrakipleriniz oyundan\nçıktı ve siz kazandınız.', { fixedWidth: 700, fixedHeight: 300, align:'center' })
                         .setStyle({
                             fontSize: '80px',
                             fontFamily: 'RR',
@@ -282,18 +289,18 @@ class EndScreen extends Phaser.Scene{
                     if(game_state == 'remain_alone' || winner_name_list[0] == userData.userName)
                         getText = 'AL ×5';
                     else
-                        getText = 'AL\nBACK';
+                        getText = 'GERİ\nAL';
                 } else if (game_type == "tournament"){
                     adsPos = 1080;
                     if(game_state == 'remain_alone' || winner_name_list[0] == userData.userName){
                         getText = 'AL ×3';
                     }
                     else
-                        getText = 'AL\nBACK';
+                        getText = 'GERİ\nAL';
                 } else if (game_type == "passion") {
                     coinText = cur_prize;
                     if(cur_prize == 0)
-                        getText2 = 'AL\n1 COIN';
+                        getText2 = 'AL\n1 JETON';
                 }
 
                 if(game_type != "passion" && game_type != "daily"){
@@ -322,7 +329,7 @@ class EndScreen extends Phaser.Scene{
                             multiplier = 4;
                         }        
                         Client.prize(0, coinText * multiplier, 0);
-                        this.addedText = this.add.text(540,adsPos, 'You received ' + (coinText* multiplier) + ' points', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                        this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' puan kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
                         .setStyle({
                             fontSize: '80px',
                             fontFamily: 'RR',
@@ -371,7 +378,7 @@ class EndScreen extends Phaser.Scene{
                         this.getCoinText.destroy();
                         multiplier = 3;
                         Client.prize(0, 0, coinText * multiplier);
-                        this.addedText = this.add.text(540,adsPos, 'You received ' + (coinText* multiplier) + ' coins', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                        this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' jeton kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
                         .setStyle({
                             fontSize: '80px',
                             fontFamily: 'RR',
@@ -431,13 +438,13 @@ class EndScreen extends Phaser.Scene{
         }
 
         if(game_type == "tournament" && game_state != 'remain_alone'){
-            this.fieldUsernameText = this.add.text(190, 280, 'Username', {
+            this.fieldUsernameText = this.add.text(190, 280, 'Kullanıcı Adı', {
                 fontFamily: 'RR',
                 fontWeight: 'bold',
                 fontSize: '80px',
                 color: "#ffffff",
             }).setOrigin(0, 0.5);
-            this.fieldPointText = this.add.text(890, 280, 'Point', {
+            this.fieldPointText = this.add.text(890, 280, 'Puan', {
                 fontFamily: 'RR',
                 fontWeight: 'bold',
                 fontSize: '80px',

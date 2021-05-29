@@ -724,41 +724,48 @@ const exportedMethods = {
                     users.getUserByName(data.inviteuser).then((user) => {
                         if(!user){
                             console.log('invite user is not exists.');
-                            socket.emit('invite_request', {result: false, to: data.inviteuser, error: 'Böyle bir\nkullanıcı yok.'});
+                            socket.emit('invite_request', {result: false, from: data.inviteuser, error: 'Böyle bir\nkullanıcı yok.'});
                         } else {
                             console.log('invite user is not connected.');
-                            socket.emit('invite_request', {result: false, to: data.inviteuser, error: 'Çağırdığınız kullanıcı\nonline değil.'});
+                            socket.emit('invite_request', {result: false, from: data.inviteuser, error: 'Çağırdığınız kullanıcı\nonline değil.'});
                         }
                     });
                 } else if (io.sockets.sockets.get(players[data.inviteuser]).handshake.session.status != 'Idle') {
                     console.log('invite user is playing game now.');
-                    socket.emit('invite_request', {result: false, to: data.inviteuser, error: 'Invite user is playing now.'});
+                    socket.emit('invite_request', {result: false, from: data.inviteuser, error: 'Invite user is\nplaying now.'});
                 } else {
-                    users.getUserByName(data.waituser).then((user) => {
-                        if (!user) {
-                            console.log('user could not find');
-                            socket.emit('invite_request', {result: false, to: data.inviteuser, error: 'Online kullanıcı\nbulunamadı'});
+                    users.getUserByName(data.inviteuser).then((invited_user) => {
+                        if (invited_user.heart == 0 || invited_user.coin < 3 || invited_user.point < 50) {
+                            console.log('Need more coin, point or heart is zero');
+                            socket.emit('invite_request', {result: false, from: data.inviteuser, error: 'Opponent needs more\ncoin, point or heart'});
                         } else {
-                            if (user.heart == 0 || user.coin < 3 || user.point < 50) {
-                                console.log('Need more coin, point or heart is zero');
-                                socket.emit('invite_request', {result: false, to: data.inviteuser, need_power: user.point>=50 ? true : false, need_point: user.point>=50 ? false : true, error: 'Need more coin, point or heart is zero'});
-                            } else {
-                                rooms.createRoom({username: data.waituser}).then((result) => {
-                                    if (result) {
-                                        console.log('invite_request is sent.');
-                                        socket.join(`game_of_${result.id}`);
-                                        socket.emit('invite_request', {result: {roomId: result.id}, to: data.inviteuser});
-                                        if(players[data.inviteuser])
-                                            io.to(players[data.inviteuser]).emit('invite_request', {result: {roomId: result.id}, from: data.waituser});
-                                        socket.handshake.session.status = 'Battle';
-                                        socket.handshake.session.room_id = result.id;
-                                        socket.handshake.session.save();
+                            users.getUserByName(data.waituser).then((user) => {
+                                if (!user) {
+                                    console.log('user could not find');
+                                    socket.emit('invite_request', {result: false, to: data.inviteuser, error: 'Online kullanıcı\nbulunamadı'});
+                                } else {
+                                    if (user.heart == 0 || user.coin < 3 || user.point < 50) {
+                                        console.log('Need more coin, point or heart is zero');
+                                        socket.emit('invite_request', {result: false, to: data.inviteuser, need_power: user.point>=50 ? true : false, need_point: user.point>=50 ? false : true, error: 'Need more coin, point or heart is zero'});
                                     } else {
-                                        socket.emit('invite_request', { result: false, to: data.inviteuser, error: 'Could not create room.' });
-                                        console.log(`invite_request request of ${data.waituser} is failed`);
+                                        rooms.createRoom({username: data.waituser}).then((result) => {
+                                            if (result) {
+                                                console.log('invite_request is sent.');
+                                                socket.join(`game_of_${result.id}`);
+                                                socket.emit('invite_request', {result: {roomId: result.id}, to: data.inviteuser});
+                                                if(players[data.inviteuser])
+                                                    io.to(players[data.inviteuser]).emit('invite_request', {result: {roomId: result.id}, from: data.waituser});
+                                                socket.handshake.session.status = 'Battle';
+                                                socket.handshake.session.room_id = result.id;
+                                                socket.handshake.session.save();
+                                            } else {
+                                                socket.emit('invite_request', { result: false, to: data.inviteuser, error: 'Could not create room.' });
+                                                console.log(`invite_request request of ${data.waituser} is failed`);
+                                            }
+                                        });
                                     }
-                                });
-                            }
+                                }
+                            });
                         }
                     });
                 }

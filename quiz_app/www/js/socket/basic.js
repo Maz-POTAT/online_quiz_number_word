@@ -58,14 +58,14 @@ Client.socket.on('disconnect',function(){
     let activeScene = game.scene.getScenes(true)[0];
     game.scene.stop(activeScene.scene.key);
     game.scene.start('LoginScreen');
-    toast_error(game.scene.getScene('LoginScreen'), 'Connection lost');
+    // toast_error(game.scene.getScene('LoginScreen'), 'Connection lost');
 });
 
 Client.socket.on('kicked',function(){
     let activeScene = game.scene.getScenes(true)[0];
     game.scene.stop(activeScene.scene.key);
     game.scene.start('HomeScreen');
-    toast_error(game.scene.getScene('HomeScreen'), 'You have been kicked');
+    toast_error(game.scene.getScene('HomeScreen'), 'Oyundan çıkarıldınız');
 });
 
 Client.socket.on('login',function(data){
@@ -225,8 +225,8 @@ function invite_modal(scene){
         }),
 
         actions: [
-            createLabel(scene, 'YES'),
-            createLabel(scene, 'NO')
+            createLabel(scene, 'EVET'),
+            createLabel(scene, 'HAYIR')
         ],
 
         space: {
@@ -279,7 +279,7 @@ function reject_modal(scene){
         y: 800,
 
         background: scene.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0xffffff),
-        content: scene.add.text(0, 0, 'OPPONENT\nREJECTED TO\nPLAY WITH YOU.', {
+        content: scene.add.text(0, 0, 'ARKADAŞINIZ SİZİNLE\nOYNAMAYI KABUL ETMEDİ', {
             fontFamily: 'RR',
             fontWeight: 'bold',
             fontSize: '64px',
@@ -288,7 +288,7 @@ function reject_modal(scene){
         }),
 
         actions: [
-            createLabel(scene, 'OK'),
+            createLabel(scene, 'TAMAM'),
         ],
 
         space: {
@@ -344,8 +344,8 @@ function passion_modal(scene){
         }),
 
         actions: [
-            createLabel(scene, 'YES'),
-            createLabel(scene, 'NO')
+            createLabel(scene, 'EVET'),
+            createLabel(scene, 'HAYIR')
         ],
 
         space: {
