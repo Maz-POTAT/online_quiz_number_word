@@ -24,7 +24,7 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-admobpro": {
-        "ADMOB_APP_ID": "quiz_app",
+        "ADMOB_APP_ID": "ca-app-pub-6093857782627159~4161552116",
         "PLAY_SERVICES_VERSION": "16.0.0"
       },
       "cordova-plugin-extension": {},
