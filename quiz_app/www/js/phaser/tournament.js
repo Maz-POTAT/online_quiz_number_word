@@ -9,6 +9,7 @@ class TournamentScreen extends Phaser.Scene{
     }
 
     preload() {
+        AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
         this.load.scenePlugin({
             key: 'rexuiplugin',
             url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
@@ -17,13 +18,17 @@ class TournamentScreen extends Phaser.Scene{
     }
 
     create() {
-        AdMob.showInterstitial();
-        AdMob.prepareInterstitial({
-            adId: admobid.interstitial,
-            autoShow:false,
-            isTesting: true,
-        });
-    
+        if(isInterstitialReady)
+        {
+            AdMob.showInterstitial();
+            AdMob.prepareInterstitial({
+                adId: admobid.rewarded,
+                autoShow:false,
+                isTesting: true,
+            });
+            isInterstitialReady = false;
+        }
+
         this.button_audio = this.sound.add('button');
         this.main_page = this.add.image(540,1500,'MainPage');
         this.main_page.setInteractive().on('pointerdown', () => {

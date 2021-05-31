@@ -39,18 +39,12 @@ const generatedNumber = () => {
   let data = {array: []};
   for (let i = 0; i<5; i++)
     array.push(generateRandom(1, 9));
-  array.push(25*Math.ceil(generateRandom(26, 99)/25)-25);
+  array.push(25*Math.ceil(generateRandom(1, 100)/25));
   data.array = Array.from(array);
 
   let result = 0;
-  while (array.length > 0) {
-      result = randomCalculate(array, result);
-  }
-  if(result > 100 && result < 999) {
-      data.result = result;
-      return data;
-  }
-  return 0;
+  data.result = generateRandom(101, 999);
+  return data;
 };
 
 const exportedMethods = {

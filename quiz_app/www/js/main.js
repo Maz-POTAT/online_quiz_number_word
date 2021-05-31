@@ -28,7 +28,7 @@ var winner_name_list = [];
 var winner_point_list = [];
 var invite_name = "";
 var room_id = "";
-
+var isInterstitialReady = false;
 const config = {
     type: Phaser.AUTO,
     scale: {

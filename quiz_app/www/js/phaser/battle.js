@@ -9,6 +9,7 @@ class BattleScreen extends Phaser.Scene{
     } 
 
     preload() {
+        AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
         this.load.scenePlugin({
             key: 'rexuiplugin',
             url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
@@ -18,13 +19,16 @@ class BattleScreen extends Phaser.Scene{
     }
 
     create() {
-        AdMob.showInterstitial();
-        AdMob.prepareInterstitial({
-            adId: admobid.interstitial,
-            autoShow:false,
-            isTesting: true,
-        });
-    
+        if(isInterstitialReady)
+        {
+            AdMob.showInterstitial();
+            AdMob.prepareInterstitial({
+                adId: admobid.rewarded,
+                autoShow:false,
+                isTesting: true,
+            });
+            isInterstitialReady = false;
+        }
         this.button_audio = this.sound.add('button');
         this.userNameImage = this.add.image(540,560,'InputBack');
         this.userName = this.add.rexInputText(540, 560, 620, 70, 

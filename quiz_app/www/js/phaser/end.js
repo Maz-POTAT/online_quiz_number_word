@@ -25,6 +25,7 @@ class EndScreen extends Phaser.Scene{
         } else if(this.bEnd && game_type == "tournament"){
             cur_point = 1000;
         }
+        AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
     }
 
     create() {
@@ -231,16 +232,16 @@ class EndScreen extends Phaser.Scene{
                         if( game_type == "battle"){
                             this.yourPointText = this.add.text(370,280, 'SEN', { fixedWidth: 700, fixedHeight: 120, align:'center' })
                             .setStyle({
-                                fontSize: '120px',
+                                fontSize: '100px',
                                 fontFamily: 'RR',
                                 fontWeight: 'bold',
                                 color: '#ffffff',
                             })
                             .setOrigin(0.5,0.5);
                             this.yourPointBack = this.add.image(370,400,'Orange');
-                            this.yourPointText = this.add.text(370,400, bWin? winner_point_list[0] : winner_point_list[1], { fixedWidth: 160, fixedHeight: 110, align:'center' })
+                            this.yourPointText = this.add.text(370,400, bWin? winner_point_list[0] : winner_point_list[1], { fixedWidth: 160, fixedHeight: 100, align:'center' })
                             .setStyle({
-                                fontSize: '110px',
+                                fontSize: '80px',
                                 fontFamily: 'RR',
                                 fontWeight: 'bold',
                                 color: '#ffffff',
@@ -248,16 +249,16 @@ class EndScreen extends Phaser.Scene{
                             .setOrigin(0.5,0.5);
                             this.oppoPointText = this.add.text(710,280, 'RAKİP', { fixedWidth: 700, fixedHeight: 120, align:'center' })
                             .setStyle({
-                                fontSize: '120px',
+                                fontSize: '100px',
                                 fontFamily: 'RR',
                                 fontWeight: 'bold',
                                 color: '#ffffff',
                             })
                             .setOrigin(0.5,0.5);
                             this.oppoPointBack = this.add.image(710,400,'Orange');
-                            this.oppoPointText = this.add.text(710,400, bWin? winner_point_list[1] : winner_point_list[0], { fixedWidth: 160, fixedHeight: 110, align:'center' })
+                            this.oppoPointText = this.add.text(710,400, bWin? winner_point_list[1] : winner_point_list[0], { fixedWidth: 160, fixedHeight: 100, align:'center' })
                             .setStyle({
-                                fontSize: '110px',
+                                fontSize: '80px',
                                 fontFamily: 'RR',
                                 fontWeight: 'bold',
                                 color: '#ffffff',
@@ -279,24 +280,37 @@ class EndScreen extends Phaser.Scene{
                 let getText = 'AL ×2';
                 let coinText = cur_point;
                 let adsPos = 1015;
+                let multiplier = 2;
                 if( game_type == 'stage' ){
                     getText = 'AL ×3';
+                    multiplier = 3;
                 }
                 else if( game_type == 'daily'){
                     getText = 'AL ×2';
+                    multiplier = 2;
                 }
                 else if( game_type == 'battle'){
                     if(game_state == 'remain_alone' || winner_name_list[0] == userData.userName)
-                        getText = 'AL ×5';
+                    {
+                        getText = 'AL ×2';
+                        multiplier = 2;
+                    }
                     else
+                    {
                         getText = 'GERİ\nAL';
+                        multiplier = 1;
+                    }
                 } else if (game_type == "tournament"){
                     adsPos = 1080;
                     if(game_state == 'remain_alone' || winner_name_list[0] == userData.userName){
                         getText = 'AL ×3';
+                        multiplier = 3;
                     }
                     else
+                    {
                         getText = 'GERİ\nAL';
+                        multiplier = 1;
+                    }
                 } else if (game_type == "passion") {
                     coinText = cur_prize;
                     if(cur_prize == 0)
@@ -308,35 +322,33 @@ class EndScreen extends Phaser.Scene{
                     this.pointAds.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();
-                        console.log('Point Interstitial');
-                        AdMob.showInterstitial();
-                        AdMob.prepareInterstitial({
-                            adId: admobid.interstitial,
-                            autoShow:false,
-                            isTesting: true,
-                        });
-                        this.pointAds.destroy();
-                        this.pointText.destroy();
-                        this.getPointText.destroy();
-                        let multiplier = 1;
-                        if( game_type == 'stage' ){
-                            multiplier = 2;
+                        if(isInterstitialReady)
+                        {
+                            AdMob.showInterstitial( () => {
+                                Client.prize(0, coinText * multiplier, 0);
+                                console.log('ok');
+                                this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' puan kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                                .setStyle({
+                                    fontSize: '80px',
+                                    fontFamily: 'RR',
+                                    fontWeight: 'bold',
+                                    color: '#ffffff',
+                                })
+                                .setOrigin(0.5,0.5);
+                            });
+                            AdMob.prepareInterstitial({
+                                adId: admobid.rewarded,
+                                autoShow:false,
+                                isTesting: true,
+                            });
+                            isInterstitialReady = false;
+                            this.pointAds.destroy();
+                            this.pointText.destroy();
+                            this.getPointText.destroy();
                         }
-                        else if( game_type == 'daily'){
-                            multiplier = 5;
+                        else {
+                            toast_error(this, 'Interstitial is not ready');
                         }
-                        else if( game_type == 'battle'){
-                            multiplier = 4;
-                        }        
-                        Client.prize(0, coinText * multiplier, 0);
-                        this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' puan kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
-                        .setStyle({
-                            fontSize: '80px',
-                            fontFamily: 'RR',
-                            fontWeight: 'bold',
-                            color: '#ffffff',
-                        })
-                        .setOrigin(0.5,0.5);
                     });
             
                     this.pointText = this.add.text(400,adsPos, coinText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
@@ -366,26 +378,32 @@ class EndScreen extends Phaser.Scene{
                     this.coinAds.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();
-                        console.log('Coin Interstitial');
-                        AdMob.showInterstitial();
-                        AdMob.prepareInterstitial({
-                            adId: admobid.interstitial,
-                            autoShow:false,
-                            isTesting: true,
-                        });
-                        this.coinAds.destroy();
-                        this.coinText.destroy();
-                        this.getCoinText.destroy();
-                        multiplier = 3;
-                        Client.prize(0, 0, coinText * multiplier);
-                        this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' jeton kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
-                        .setStyle({
-                            fontSize: '80px',
-                            fontFamily: 'RR',
-                            fontWeight: 'bold',
-                            color: '#ffffff',
-                        })
-                        .setOrigin(0.5,0.5);
+                        if(isInterstitialReady)
+                        {
+                            AdMob.showInterstitial( () => {
+                                Client.prize(0, 0, coinText * multiplier);
+                                this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' jeton kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                                .setStyle({
+                                    fontSize: '80px',
+                                    fontFamily: 'RR',
+                                    fontWeight: 'bold',
+                                    color: '#ffffff',
+                                })
+                                .setOrigin(0.5,0.5);
+                            });
+                            AdMob.prepareInterstitial({
+                                adId: admobid.rewarded,
+                                autoShow:false,
+                                isTesting: true,
+                            });
+                            isInterstitialReady = false;
+                            this.coinAds.destroy();
+                            this.coinText.destroy();
+                            this.getCoinText.destroy();
+                        }
+                        else {
+                            toast_error(this, 'Interstitial is not ready');
+                        }
                     });
         
                     this.coinText = this.add.text(400,adsPos, coinText, { fixedWidth: 160, fixedHeight: 60, align:'center' })

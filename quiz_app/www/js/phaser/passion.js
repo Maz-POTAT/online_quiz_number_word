@@ -9,6 +9,7 @@ class PassionScreen extends Phaser.Scene{
     } 
 
     preload() {
+        AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
         this.load.scenePlugin({
             key: 'rexuiplugin',
             url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
@@ -52,12 +53,16 @@ class PassionScreen extends Phaser.Scene{
     }
 
     turn(){
-        AdMob.showInterstitial();
-        AdMob.prepareInterstitial({
-            adId: admobid.interstitial,
-            autoShow:false,
-            isTesting: true,
-        });
+        if(isInterstitialReady)
+        {
+            AdMob.showInterstitial();
+            AdMob.prepareInterstitial({
+                adId: admobid.rewarded,
+                autoShow:false,
+                isTesting: true,
+            });
+            isInterstitialReady = false;
+        }
         this.turnButton.disableInteractive().setAlpha(0.5);
         this.mainPageButton.disableInteractive().setAlpha(0.5);
         this.bTurn = true;
@@ -112,6 +117,7 @@ class PassionScreen extends Phaser.Scene{
             scene.turnButton.setInteractive().setAlpha(1.0);
             scene.mainPageButton.setInteractive().setAlpha(1.0);
             scene.stopButton.disableInteractive().setAlpha(0.5);
+            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
         }
         scene.angle = scene.angle + scene.angle_speed;
         if(scene.angle>360)

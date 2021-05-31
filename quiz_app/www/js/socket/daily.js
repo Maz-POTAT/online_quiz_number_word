@@ -7,12 +7,16 @@ Client.daily_end = function(){
 };
 
 Client.socket.on('daily_start',function(data){
-    AdMob.showInterstitial();
-    AdMob.prepareInterstitial({
-        adId: admobid.interstitial,
-        autoShow:false,
-        isTesting: true,
-    });
+    if(isInterstitialReady)
+    {
+        AdMob.showInterstitial();
+        AdMob.prepareInterstitial({
+            adId: admobid.rewarded,
+            autoShow:false,
+            isTesting: true,
+        });
+        isInterstitialReady = false;
+    }
     let activeScene = game.scene.getScenes(true)[0];
     if(data.result)
     {

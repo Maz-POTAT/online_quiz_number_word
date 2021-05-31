@@ -134,6 +134,7 @@ class HomeScreen extends Phaser.Scene{
         });
         this.daily_game = this.add.image(540,1030,'DailyGame');
         this.daily_game.setInteractive().on('pointerdown', () => {
+            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
             if(sound_enable)
                 this.button_audio.play();
             Client.daily_start();
