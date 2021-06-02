@@ -29,13 +29,11 @@ function initApp() {
     if (! AdMob ) { alert( 'admob plugin not ready' ); return; }
     AdMob.createBanner( {
         adId: admobid.banner, 
-        isTesting: true,
     } );
     AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
 
     AdMob.prepareInterstitial({
-        adId: admobid.rewarded,
+        adId: admobid.interstitial,
         autoShow:false,
-        isTesting: true,
     });
 }

@@ -36,7 +36,7 @@ const baseUrl = '37.148.213.22';
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/quiz_app/www'));
 
-app.use(session);
+app.use(session); 
 io.use(sharedsession(session, {autoSave: true}));
 
 // app.get('/', (req, res) => {

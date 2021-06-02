@@ -22,9 +22,8 @@ class TournamentScreen extends Phaser.Scene{
         {
             AdMob.showInterstitial();
             AdMob.prepareInterstitial({
-                adId: admobid.rewarded,
+                adId: admobid.interstitial,
                 autoShow:false,
-                isTesting: true,
             });
             isInterstitialReady = false;
         }

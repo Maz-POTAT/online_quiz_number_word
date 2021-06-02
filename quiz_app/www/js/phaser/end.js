@@ -337,16 +337,17 @@ class EndScreen extends Phaser.Scene{
                                 .setOrigin(0.5,0.5);
                             });
                             AdMob.prepareInterstitial({
-                                adId: admobid.rewarded,
+                                adId: admobid.interstitial,
                                 autoShow:false,
-                                isTesting: true,
                             });
                             isInterstitialReady = false;
+                            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
                             this.pointAds.destroy();
                             this.pointText.destroy();
                             this.getPointText.destroy();
                         }
                         else {
+                            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
                             toast_error(this, 'Interstitial is not ready');
                         }
                     });
@@ -392,16 +393,17 @@ class EndScreen extends Phaser.Scene{
                                 .setOrigin(0.5,0.5);
                             });
                             AdMob.prepareInterstitial({
-                                adId: admobid.rewarded,
+                                adId: admobid.interstitial,
                                 autoShow:false,
-                                isTesting: true,
                             });
                             isInterstitialReady = false;
+                            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
                             this.coinAds.destroy();
                             this.coinText.destroy();
                             this.getCoinText.destroy();
                         }
                         else {
+                            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
                             toast_error(this, 'Interstitial is not ready');
                         }
                     });
