@@ -25,7 +25,6 @@ class EndScreen extends Phaser.Scene{
         } else if(this.bEnd && game_type == "tournament"){
             cur_point = 1000;
         }
-        AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
     }
 
     create() {
@@ -87,9 +86,9 @@ class EndScreen extends Phaser.Scene{
                 {
                     this.win = this.add.image(540,480,'Win');
                     if(game_type == "stage"){
-                        this.earnedPointText = this.add.text(380, 860, 'Kazandığınız\npuan', { fixedHeight: 120, align:'center' })
+                        this.earnedPointText = this.add.text(360, 860, 'Kazandığınız\npuan', { fixedHeight: 120, align:'center' })
                         .setStyle({
-                            fontSize: '36px',
+                            fontSize: '48px',
                             fontFamily: 'RR',
                             fontWeight: 'bold',
                             color: '#ffffff',
@@ -105,9 +104,9 @@ class EndScreen extends Phaser.Scene{
                         })
                         .setOrigin(0.5,0.5);
                     } else {
-                        this.earnedPointText = this.add.text(380, 860, 'Kazandığınız\nJeton', { fixedHeight: 120, align:'center' })
+                        this.earnedPointText = this.add.text(360, 860, 'Kazandığınız\nJeton', { fixedHeight: 120, align:'center' })
                         .setStyle({
-                            fontSize: '36px',
+                            fontSize: '48px',
                             fontFamily: 'RR',
                             fontWeight: 'bold',
                             color: '#ffffff',
@@ -200,9 +199,9 @@ class EndScreen extends Phaser.Scene{
                     else if(game_type == "daily")
                         showText = 'Tebrikler oyunu bitirdiniz';
                     else if(game_type == "passion")
-                        showText = 'Kazandığınız jeton';
+                        showText = 'Kazandığınız Ödül';
                     this.win = this.add.image(540,400,'Win');
-                    this.gameFinishText = this.add.text(540,700, showText, { fixedWidth: 700, fixedHeight: 50, align:'center' })
+                    this.gameFinishText = this.add.text(540,700, showText, { fixedWidth: 700, fixedHeight: 100, align:'center' })
                     .setStyle({
                         fontSize: '50px',
                         fontFamily: 'RR',
@@ -268,7 +267,7 @@ class EndScreen extends Phaser.Scene{
                     } else {
                         this.gameFinishText = this.add.text(540, 500, game_type == 'battle' ? 'Rakibiniz oyundan\nçıktı ve siz\nkazandınız.' : 'Turnuvadaki tüm\nrakipleriniz oyundan\nçıktı ve siz kazandınız.', { fixedWidth: 700, fixedHeight: 300, align:'center' })
                         .setStyle({
-                            fontSize: '80px',
+                            fontSize: '64px',
                             fontFamily: 'RR',
                             fontWeight: 'bold',
                             color: '#ffffff',
@@ -312,19 +311,17 @@ class EndScreen extends Phaser.Scene{
                         multiplier = 1;
                     }
                 } else if (game_type == "passion") {
-                    coinText = cur_prize;
-                    if(cur_prize == 0)
-                        getText2 = 'AL\n1 JETON';
+                    coinText = prize_amount;
+                    multiplier = 2;
                 }
 
-                if(game_type != "passion" && game_type != "daily"){
+                if((game_type != "daily" && game_type != "passion") || (game_type == "passion" && prize_type==1)){
                     this.pointAds = this.add.image(540,adsPos,'PointAds');
                     this.pointAds.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();
-                        if(isInterstitialReady)
-                        {
-                            AdMob.showInterstitial( () => {
+                        if(isRewardReady){
+                            AdMob.showRewardVideoAd( () => {
                                 Client.prize(0, coinText * multiplier, 0);
                                 console.log('ok');
                                 this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' puan kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
@@ -336,20 +333,22 @@ class EndScreen extends Phaser.Scene{
                                 })
                                 .setOrigin(0.5,0.5);
                             });
-                            AdMob.prepareInterstitial({
-                                adId: admobid.interstitial,
+                            isRewardReady = false;
+                            AdMob.prepareRewardVideoAd({
+                                adId: admobid.rewarded,
                                 autoShow:false,
-                            });
-                            isInterstitialReady = false;
-                            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
+                            }, () => {isRewardReady = true;});
                             this.pointAds.destroy();
                             this.pointText.destroy();
                             this.getPointText.destroy();
+                        } else {
+                            AdMob.prepareRewardVideoAd({
+                                adId: admobid.rewarded,
+                                autoShow:false,
+                            }, () => {isRewardReady = true;});
+                            toast_error(this, 'Video hazır değil');
                         }
-                        else {
-                            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
-                            toast_error(this, 'Interstitial is not ready');
-                        }
+
                     });
             
                     this.pointText = this.add.text(400,adsPos, coinText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
@@ -373,15 +372,14 @@ class EndScreen extends Phaser.Scene{
                 }
     
 
-                if(game_type == "daily")
+                if(game_type == "daily" || (game_type == "passion" && prize_type==2))
                 {
                     this.coinAds = this.add.image(540,adsPos,'CoinAds');
                     this.coinAds.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();
-                        if(isInterstitialReady)
-                        {
-                            AdMob.showInterstitial( () => {
+                        if(isRewardReady){
+                            AdMob.showRewardVideoAd( () => {
                                 Client.prize(0, 0, coinText * multiplier);
                                 this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' jeton kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
                                 .setStyle({
@@ -392,19 +390,20 @@ class EndScreen extends Phaser.Scene{
                                 })
                                 .setOrigin(0.5,0.5);
                             });
-                            AdMob.prepareInterstitial({
-                                adId: admobid.interstitial,
+                            isRewardReady = false;
+                            AdMob.prepareRewardVideoAd({
+                                adId: admobid.rewarded,
                                 autoShow:false,
-                            });
-                            isInterstitialReady = false;
-                            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
+                            }, () => {isRewardReady = true;});
                             this.coinAds.destroy();
                             this.coinText.destroy();
                             this.getCoinText.destroy();
-                        }
-                        else {
-                            AdMob.isInterstitialReady(function(ready){ if(ready){ isInterstitialReady = ready} });
-                            toast_error(this, 'Interstitial is not ready');
+                        } else {
+                            AdMob.prepareRewardVideoAd({
+                                adId: admobid.rewarded,
+                                autoShow:false,
+                            }, () => {isRewardReady = true;});
+                            toast_error(this, 'Video hazır değil');
                         }
                     });
         
@@ -426,6 +425,61 @@ class EndScreen extends Phaser.Scene{
                     })
                     .setOrigin(0.5,0.5);
                 }
+
+                if(game_type == "passion" && prize_type==0)
+                {
+                    this.heartAds = this.add.image(540,adsPos,'HeartAds');
+                    this.heartAds.setInteractive().on('pointerdown', () => {
+                        if(sound_enable)
+                            this.button_audio.play();
+                        if(isRewardReady){
+                            AdMob.showRewardVideoAd( () => {
+                                Client.prize(coinText * multiplier, 0, 0);
+                                this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' can kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                                .setStyle({
+                                    fontSize: '80px',
+                                    fontFamily: 'RR',
+                                    fontWeight: 'bold',
+                                    color: '#ffffff',
+                                })
+                                .setOrigin(0.5,0.5);
+                            });
+                            isRewardReady = false;
+                            AdMob.prepareRewardVideoAd({
+                                adId: admobid.rewarded,
+                                autoShow:false,
+                            }, () => {isRewardReady = true;});
+                            this.heartAds.destroy();
+                            this.heartText.destroy();
+                            this.getHeartText.destroy();
+                        } else {
+                            AdMob.prepareRewardVideoAd({
+                                adId: admobid.rewarded,
+                                autoShow:false,
+                            }, () => {isRewardReady = true;});
+                            toast_error(this, 'RewardVideo is not Ready.');
+                        }
+                    });
+        
+                    this.heartText = this.add.text(400,adsPos, coinText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
+                    .setStyle({
+                        fontSize: '60px',
+                        fontFamily: 'RR',
+                        fontWeight: 'bold',
+                        color: '#ffffff',
+                    })
+                    .setOrigin(0.5,0.5);
+                    this.getHeartText = this.add.text(800,adsPos, getText)
+                    .setStyle({
+                        fontSize: '45px',
+                        fontFamily: 'RR',
+                        fontWeight: 'bold',
+                        color: '#fa5c00',
+                        align: 'center'
+                    })
+                    .setOrigin(0.5,0.5);
+                }
+
                 this.main_page = this.add.image(540,1310,'MainPage');
                 this.main_page.setInteractive().on('pointerdown', () => {
                     if(sound_enable)

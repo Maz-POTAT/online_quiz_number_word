@@ -36,4 +36,9 @@ function initApp() {
         adId: admobid.interstitial,
         autoShow:false,
     });
+
+    AdMob.prepareRewardVideoAd({
+        adId: admobid.rewarded,
+        autoShow:false,
+    }, () => {isRewardReady = true;});
 }

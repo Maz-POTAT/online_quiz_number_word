@@ -54,6 +54,15 @@ Client.policy_content = function(){
 
 ////////////////////////////////////////////////////////////////////////////
 
+Client.socket.on('connect',function(){
+    let activeScene = game.scene.getScenes(true)[0];
+    if(activeScene != undefined && activeScene.scene.key == 'LoginScreen'){
+        if(window.localStorage.getItem('UserName') != null){
+            Client.login(window.localStorage.getItem('UserName'), window.localStorage.getItem('Password'))
+        }
+    }
+});
+
 Client.socket.on('disconnect',function(){
     let activeScene = game.scene.getScenes(true)[0];
     game.scene.stop(activeScene.scene.key);
@@ -216,7 +225,7 @@ function invite_modal(scene){
         y: 800,
 
         background: scene.rexUI.add.roundRectangle(0, 0, 100, 100, 20, 0xffffff),
-        content: scene.add.text(0, 0, invite_name + '\nSİZİNLE DÜELLO YAPMAK\nİSTİYOR. İSTER MİSİNİZ?', {
+        content: scene.add.text(0, 0, invite_name + '\nile düello oynamak\nister misiniz?', {
             fontFamily: 'RR',
             fontWeight: 'bold',
             fontSize: '64px',

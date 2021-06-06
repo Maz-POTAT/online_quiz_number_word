@@ -3,6 +3,10 @@
  * E-mail: jerome.renaux@gmail.com
  */
 
+function cryptName(name){
+    return name[0] + '***' +name[name.length-1];
+}
+
 class RankScreen extends Phaser.Scene{
     constructor(){
         super({key: "RankScreen"});
@@ -78,7 +82,7 @@ class RankScreen extends Phaser.Scene{
         
             this.graphics.fillStyle(0xfa5c00, 1);
             this.graphics.fillRoundedRect(390,550,300,60, 20);
-            this.add.text(540, 580, rank_list[0].userName, {
+            this.add.text(540, 580, cryptName(rank_list[0].userName), {
                 fontFamily: 'RR',
                 fontWeight: 'bold',
                 fontSize: '32px',
@@ -120,7 +124,7 @@ class RankScreen extends Phaser.Scene{
         
             this.graphics.fillStyle(0xfa5c00, 1);
             this.graphics.fillRoundedRect(230,920,220,40, 20);
-            this.add.text(340, 940, rank_list[1].userName, {
+            this.add.text(340, 940, cryptName(rank_list[1].userName), {
                 fontFamily: 'RR',
                 fontWeight: 'bold',
                 fontSize: '28px',
@@ -162,7 +166,7 @@ class RankScreen extends Phaser.Scene{
         
             this.graphics.fillStyle(0xfa5c00, 1);
             this.graphics.fillRoundedRect(630,920,220,40, 20);
-            this.add.text(740, 940, rank_list[2].userName, {
+            this.add.text(740, 940, cryptName(rank_list[2].userName), {
                 fontFamily: 'RR',
                 fontWeight: 'bold',
                 fontSize: '28px',

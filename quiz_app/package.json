@@ -1,7 +1,7 @@
 {
   "name": "iskelot.zafer",
   "displayName": "ISKELOT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A online quiz game with words and numbers",
   "main": "index.js",
   "scripts": {

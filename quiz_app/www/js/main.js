@@ -22,13 +22,15 @@ var cur_number = 0;
 var cur_word = 0;
 
 var cur_point = 0;
-var cur_prize = 0;
+var prize_type = 0;
+var prize_amount = 0;
 
 var winner_name_list = [];
 var winner_point_list = [];
 var invite_name = "";
 var room_id = "";
 var isInterstitialReady = false;
+var isRewardReady = false;
 const config = {
     type: Phaser.AUTO,
     scale: {

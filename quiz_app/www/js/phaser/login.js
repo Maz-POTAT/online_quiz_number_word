@@ -40,6 +40,7 @@ class LoginScreen extends Phaser.Scene{
         this.load.image("NextStage", "./images/next_stage.png");
         this.load.image("PointAds", "./images/win_earn_point_ads.png");
         this.load.image("CoinAds", "./images/win_earn_coin_ads.png");
+        this.load.image("HeartAds", "./images/win_earn_heart_ads.png");
         this.load.image("UserAvatar", "./images/avatar.png");
         this.load.image("avatar_cover", "./images/avatar_cover.png");
         this.load.image("Life", "./images/life.png");
@@ -61,10 +62,18 @@ class LoginScreen extends Phaser.Scene{
         this.load.spritesheet("Divi", "./images/sign_div.png", { frameWidth: 190, frameHeight: 178 });
         this.load.spritesheet("Refresh", "./images/refresh.png", { frameWidth: 190, frameHeight: 178 });
         this.load.spritesheet("Check", "./images/check.png", { frameWidth: 190, frameHeight: 178 });
-        this.load.image("Passion", "./images/passion_board.png");
+
+        this.load.image("PassionBoard", "./images/passion_board.png");
+        this.load.image("PassionBack", "./images/passion_back.png");
         this.load.image("Turn", "./images/turn.png");
-        this.load.image("Stop", "./images/stop.png");
         this.load.image("Indicator", "./images/passion_picker.png");
+        this.load.image("Passion", "./images/passion_panel.png");
+        this.load.image("PassionLight1", "./images/passion_light_1.png");
+        this.load.image("PassionLight2", "./images/passion_light_2.png");
+        this.load.image("PassionLight3", "./images/passion_light_3.png");
+        this.load.image("PassionLight4", "./images/passion_light_4.png");
+        this.load.image("Spark", "./images/blue.png");
+
         this.load.image("SignUp1", "./images/signup_button.png");
         this.load.image("TournamentDetailBlack", "./images/tournament_detail_black_back.png");
         this.load.image("TournamentDetailOrange", "./images/tournament_detail_orange_back.png");

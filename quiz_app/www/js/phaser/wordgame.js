@@ -131,7 +131,7 @@ class WordGameScreen extends Phaser.Scene{
         {
             if(sound_enable)
                 this.lose_audio.play();
-            toast_error(this, 'You must find a word\nwith at least 5 letters\nto pass stage!');
+            toast_error(this, 'En az 5 harfli\ngeçerli bir\nkelime bulmalısınız!');
             return;
         }
         let match_index = gameData.wordData[cur_word].matchArray.indexOf(this.result);
