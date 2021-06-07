@@ -48,6 +48,30 @@ io.use(sharedsession(session, {autoSave: true}));
 app.use(expressLayouts);
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+app.use((req,res,next) =>{
+    if(req.method == 'POST')
+    {
+        next();
+        return;
+    }
+    let parts = req.url.split('/');
+    let password = parts[1];
+    if(!password.startsWith('Nihanece'))
+    {
+        res.status(404);
+        res.type('txt').send('Not found');
+        return;
+    }
+    let numberPassword = password.replace('Nihanece', '');
+    let date = new Date();
+    if( Number.parseInt(numberPassword) != ((date.getMonth()+1)*5 + date.getDate()))
+    {
+        res.status(404);
+        res.type('txt').send('Not found');
+        return;
+    }
+    next();
+});
 
 //Set Route
 require('./routes/web.js')(app);

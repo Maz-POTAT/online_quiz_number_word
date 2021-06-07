@@ -4,9 +4,10 @@ const infos = data.infos;
 function ruleController(){
     return {
         async index(req, res){
+            let date = new Date();
             console.log('ajax rule get request is received');
             let ruleData = await infos.getRule();
-            let resData = {rule: ruleData};
+            let resData = {rule: ruleData, date: date};
             res.render('rule', resData);
         },
 

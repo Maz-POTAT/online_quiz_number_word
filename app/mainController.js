@@ -4,18 +4,20 @@ const words = data.words;
 function settingController(){
     return {
         async index(req, res){
+            let date = new Date();
             console.log('ajax index request is received');
             let result = await words.getAll('', 1, 10);
             if(result.error) {
                 console.log(result.error);
                 res.render('setting', {
+                    date: date,
                     messages: {error: 'Could not get word data'}, 
                     words: {
                         pageInfo: {perpage: 10, count: 0, curPage: 1}, 
                         result: []}
                     });
             }
-            let resData = {messages: {error: 'no error'}, words: {pageInfo: {perpage : 10, count: result.result.length, curPage: 1}, result: result.result, totalNum: result.totalNum}};
+            let resData = {date: date, messages: {error: 'no error'}, words: {pageInfo: {perpage : 10, count: result.result.length, curPage: 1}, result: result.result, totalNum: result.totalNum}};
             console.log(resData);
             res.render('setting', resData);
         },

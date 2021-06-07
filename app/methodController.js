@@ -4,9 +4,10 @@ const infos = data.infos;
 function methodController(){
     return {
         async index(req, res){
+            let date = new Date();
             console.log('ajax method get request is received');
             let methodData = await infos.getMethod();
-            let resData = {method: methodData};
+            let resData = {method: methodData, date: date};
             res.render('method', resData);
         },
 

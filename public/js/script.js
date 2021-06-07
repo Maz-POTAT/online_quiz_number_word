@@ -222,9 +222,9 @@ $('#tournament_add').click(function(){
             "<td class='border py-2 number_col text-center'>" +
                 "<input class='fee info_race info_text' type='number' value='0'/>" +
             "</td>" +
-            "<td class='border py-2 number_col text-center'>" +
-                "<input class='prize info_race info_text' type='number' value='0'/>" +
-            "</td>" +
+            // "<td class='border py-2 number_col text-center'>" +
+            //     "<input class='prize info_race info_text' type='number' value='0'/>" +
+            // "</td>" +
             "<td class='border py-2 text_col text-center'>" +
                 "<span class='room_id info_race info_text'></span>" +
             "</td>" +
@@ -270,17 +270,17 @@ $('#tournament_save').click(function(){
     var newData = {
         start: $('tr:last').find('.start').first().val(),
         fee: $('tr:last').find('.fee').first().val(),
-        prize: $('tr:last').find('.prize').first().val(),
+        // prize: $('tr:last').find('.prize').first().val(),
         room_id: $('tr:last').find('.room_id').first().text()
     };
 
     if (newData.room_id != '') return;
     console.log(newData);
 
-    if(newData.start == '' || newData.fee < 0 || newData.prize < 0) {
+    if(newData.start == '' || newData.fee < 0/* || newData.prize < 0*/) {
         $('tr:last').find('.start').first().val('');
         $('tr:last').find('.fee').first().val(0);
-        $('tr:last').find('.prize').first().val(0);
+        // $('tr:last').find('.prize').first().val(0);
         alert("Input value is invalid. Try again.");
         return;
     }
@@ -289,7 +289,7 @@ $('#tournament_save').click(function(){
     if (isNaN(newStartDate)) {
         $('tr:last').find('.start').first().val('');
         $('tr:last').find('.fee').first().val(0);
-        $('tr:last').find('.prize').first().val(0);
+        // $('tr:last').find('.prize').first().val(0);
         alert("Invalid DateTime input. Try again.");
         return;
     };

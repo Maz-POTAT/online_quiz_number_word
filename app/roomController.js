@@ -4,6 +4,7 @@ const rooms = data.rooms;
 function roomController(){
     return {
         async index(req, res){
+            let date = new Date();
             console.log('ajax room get request is received');
             let result = await rooms.listTournament(false);
             for (let i in result) {
@@ -12,7 +13,7 @@ function roomController(){
                 const start = new Date(room.startDateTime);
                 result[i] = room;
             }
-            let resData = {messages: {error: 'no error'}, rooms: {result: result}};
+            let resData = {messages: {error: 'no error'}, rooms: {result: result}, date: date};
             console.log(result);
             res.render('tournament', resData);
         },
@@ -34,7 +35,7 @@ function roomController(){
             let resData = {result: false};
             let start = newData.start;
 
-            const result = await rooms.createRoom({joiningFee: parseInt(newData.fee), prize: parseInt(newData.prize), startDateTime: parseInt(start)});
+            const result = await rooms.createRoom({joiningFee: parseInt(newData.fee)/*, prize: parseInt(newData.prize)*/, startDateTime: parseInt(start)});
             if(!result) res.status(500).send(resData);
             else {
                 resData = {result: result.id};
