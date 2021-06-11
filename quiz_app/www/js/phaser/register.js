@@ -69,7 +69,7 @@ class RegisterScreen extends Phaser.Scene{
                 type:'text',
                 fontSize: '64px',
                 fontFamily: 'RR',
-                color: '#000000',
+                color: '#106eac',
             })
         .setOrigin(0.5,0.5);
 
@@ -89,7 +89,7 @@ class RegisterScreen extends Phaser.Scene{
             type:'text',
             fontSize: '64px',
             fontFamily: 'RR',
-            color: '#000000',
+            color: '#106eac',
         })
         .setOrigin(0.5,0.5);
         this.emailText = this.add.text(210, 685, 'Email', { fixedWidth: 400, fixedHeight: 50 })
@@ -108,7 +108,7 @@ class RegisterScreen extends Phaser.Scene{
                 type:'text',
                 fontSize: '64px',
                 fontFamily: 'RR',
-                color: '#000000',
+                color: '#106eac',
             })
         .setOrigin(0.5,0.5);
         this.passwordText = this.add.text(210, 835, 'Şifre', { fixedWidth: 200, fixedHeight: 50 })

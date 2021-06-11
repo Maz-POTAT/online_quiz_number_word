@@ -36,7 +36,7 @@ class BattleScreen extends Phaser.Scene{
                 type:'text',
                 fontSize: '64px',
                 fontFamily: 'RR',
-                color: '#000000',
+                color: '#106eac',
             })
         .setOrigin(0.5,0.5);
 

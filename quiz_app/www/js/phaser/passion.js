@@ -29,15 +29,16 @@ class PassionScreen extends Phaser.Scene{
         }
         this.firefox = this.add.particles('Spark').setDepth(10);
         this.button_audio = this.sound.add('button');
-        this.passion_board = this.add.image(540,700,'PassionBoard').setScale(1.3);
-        this.passion_back = this.add.image(540,725,'PassionBack').setScale(1.3);
-        this.passion_flower = this.add.image(540,725,'Passion').setScale(1.3);
+        this.bonus_audio = this.sound.add('bonus');
+        this.passion_board = this.add.image(540,700,'PassionBoard').setScale(1.7);
+        this.passion_back = this.add.image(540,740,'PassionBack').setScale(1.7);
+        this.passion_flower = this.add.image(540,740,'Passion').setScale(1.7);
         this.lights = [];
-        this.lights.push(this.add.image(540,740,'PassionLight1').setScale(1.3));
-        this.lights.push(this.add.image(540,720,'PassionLight2').setScale(1.3));
-        this.lights.push(this.add.image(540,720,'PassionLight3').setScale(1.3));
-        this.lights.push(this.add.image(540,720,'PassionLight4').setScale(1.3));
-        this.indicator = this.add.image(540,1000,'Indicator').setScale(1.3);
+        this.lights.push(this.add.image(540,765,'PassionLight1').setScale(1.7));
+        this.lights.push(this.add.image(540,735,'PassionLight2').setScale(1.7));
+        this.lights.push(this.add.image(540,735,'PassionLight3').setScale(1.7));
+        this.lights.push(this.add.image(540,735,'PassionLight4').setScale(1.7));
+        this.indicator = this.add.image(540,1110,'Indicator').setScale(1.7);
 
         this.lights_normal_tween = [];
         this.lights_turn_tween = [];
@@ -107,9 +108,11 @@ class PassionScreen extends Phaser.Scene{
             ease: "Cubic.easeOut",
             callbackScope: this,
             onComplete: function(tween){
+                if(sound_enable)
+                    this.bonus_audio.play();
                 var emitter = this.firefox.createEmitter({
                     x: 540,
-                    y: 920,
+                    y: 1000,
                     angle: { min: 255, max: 285 },
                     speed: 500,
                     gravityX: 0,

@@ -79,7 +79,7 @@ class ProfileScreen extends Phaser.Scene{
                 type:'text',
                 fontSize: '64px',
                 fontFamily: 'RR',
-                color: '#000000',
+                color: '#106eac',
             })
         .setOrigin(0.5,0.5);
 
@@ -99,7 +99,7 @@ class ProfileScreen extends Phaser.Scene{
             type:'text',
             fontSize: '64px',
             fontFamily: 'RR',
-            color: '#000000',
+            color: '#106eac',
         })
         .setOrigin(0.5,0.5);
         this.emailText = this.add.text(210, 785, 'Email', { fixedWidth: 200, fixedHeight: 32 })
@@ -118,7 +118,7 @@ class ProfileScreen extends Phaser.Scene{
                 type:'text',
                 fontSize: '64px',
                 fontFamily: 'RR',
-                color: '#000000',
+                color: '#106eac',
             })
         .setOrigin(0.5,0.5);
         this.passwordText = this.add.text(210, 935, 'Şifre', { fixedWidth: 200, fixedHeight: 32 })

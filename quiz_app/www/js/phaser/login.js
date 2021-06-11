@@ -81,6 +81,7 @@ class LoginScreen extends Phaser.Scene{
         this.load.image("Letter", "./images/letter.png");
 
         this.load.audio('button', './assets/audio/button click.mp3');
+        this.load.audio('bonus', './assets/audio/bonus.ogg');
         this.load.audio('lose', './assets/audio/losed result.mp3');
         this.load.audio('success', './assets/audio/success result.mp3');
         this.load.audio('waiting', './assets/audio/waiting opponent sound.mp3');
@@ -102,7 +103,7 @@ class LoginScreen extends Phaser.Scene{
                 type:'text',
                 fontSize: '64px',
                 fontFamily: 'RR',
-                color: '#000000',
+                color: '#106eac',
             })
         .setOrigin(0.5,0.5);
 
@@ -122,7 +123,7 @@ class LoginScreen extends Phaser.Scene{
                 type:'password',
                 fontSize: '64px',
                 fontFamily: 'RR',
-                color: '#000000',
+                color: '#106eac',
             })
         .setOrigin(0.5,0.5);
         this.passwordText = this.add.text(210, 685, 'Şifre', { fixedWidth: 400, fixedHeight: 50 })

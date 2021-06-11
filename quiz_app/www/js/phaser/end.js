@@ -277,81 +277,79 @@ class EndScreen extends Phaser.Scene{
                 }
                 
                 let getText = 'AL ×2';
-                let coinText = cur_point;
-                let adsPos = 1015;
-                let multiplier = 2;
+                this.prizeText = cur_point;
+                this.adsPos = 1015;
+                this.multiplier = 2;
                 if( game_type == 'stage' ){
                     getText = 'AL ×3';
-                    multiplier = 3;
+                    this.multiplier = 3;
                 }
                 else if( game_type == 'daily'){
                     getText = 'AL ×2';
-                    multiplier = 2;
+                    this.multiplier = 2;
                 }
                 else if( game_type == 'battle'){
                     if(game_state == 'remain_alone' || winner_name_list[0] == userData.userName)
                     {
                         getText = 'AL ×2';
-                        multiplier = 2;
+                        this.multiplier = 2;
                     }
                     else
                     {
                         getText = 'GERİ\nAL';
-                        multiplier = 1;
+                        this.multiplier = 1;
                     }
                 } else if (game_type == "tournament"){
-                    adsPos = 1080;
+                    this.adsPos = 1080;
                     if(game_state == 'remain_alone' || winner_name_list[0] == userData.userName){
                         getText = 'AL ×3';
-                        multiplier = 3;
+                        this.multiplier = 3;
                     }
                     else
                     {
                         getText = 'GERİ\nAL';
-                        multiplier = 1;
+                        this.multiplier = 1;
                     }
                 } else if (game_type == "passion") {
-                    coinText = prize_amount;
-                    multiplier = 2;
+                    this.prizeText = prize_amount;
+                    this.multiplier = 2;
                 }
 
                 if((game_type != "daily" && game_type != "passion") || (game_type == "passion" && prize_type==1)){
-                    this.pointAds = this.add.image(540,adsPos,'PointAds');
+                    this.pointAds = this.add.image(540,this.adsPos,'PointAds');
                     this.pointAds.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();
                         if(isRewardReady){
-                            AdMob.showRewardVideoAd( () => {
-                                Client.prize(0, coinText * multiplier, 0);
-                                console.log('ok');
-                                this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' puan kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
-                                .setStyle({
-                                    fontSize: '80px',
-                                    fontFamily: 'RR',
-                                    fontWeight: 'bold',
-                                    color: '#ffffff',
-                                })
-                                .setOrigin(0.5,0.5);
+                            isRewardPassed = false;
+                            if(this.rewardTimer)
+                            {
+                                this.rewardTimer.remove();
+                                this.time.removeEvent(this.rewardTimer);
+                            }
+                            this.rewardTimer = this.time.addEvent({
+                                delay: 3000,
+                                callback: this.rewardCheck,
+                                args: [this],
+                                loop: false
                             });
+                            AdMob.showRewardVideoAd();
                             isRewardReady = false;
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
-                            }, () => {isRewardReady = true;});
-                            this.pointAds.destroy();
-                            this.pointText.destroy();
-                            this.getPointText.destroy();
+                            });
                         } else {
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
-                            }, () => {isRewardReady = true;});
+                            });
                             toast_error(this, 'Video hazır değil');
                         }
 
                     });
             
-                    this.pointText = this.add.text(400,adsPos, coinText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
+                    this.pointText = this.add.text(400,this.adsPos, this.prizeText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
                     .setStyle({
                         fontSize: '60px',
                         fontFamily: 'RR',
@@ -360,7 +358,7 @@ class EndScreen extends Phaser.Scene{
                     })
                     .setOrigin(0.5,0.5);
     
-                    this.getPointText = this.add.text(800,adsPos, getText)
+                    this.getPointText = this.add.text(800,this.adsPos, getText)
                     .setStyle({
                         fontSize: '45px',
                         fontFamily: 'RR',
@@ -374,40 +372,39 @@ class EndScreen extends Phaser.Scene{
 
                 if(game_type == "daily" || (game_type == "passion" && prize_type==2))
                 {
-                    this.coinAds = this.add.image(540,adsPos,'CoinAds');
+                    this.coinAds = this.add.image(540,this.adsPos,'CoinAds');
                     this.coinAds.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();
                         if(isRewardReady){
-                            AdMob.showRewardVideoAd( () => {
-                                Client.prize(0, 0, coinText * multiplier);
-                                this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' jeton kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
-                                .setStyle({
-                                    fontSize: '80px',
-                                    fontFamily: 'RR',
-                                    fontWeight: 'bold',
-                                    color: '#ffffff',
-                                })
-                                .setOrigin(0.5,0.5);
+                            isRewardPassed = false;
+                            if(this.rewardTimer)
+                            {
+                                this.rewardTimer.remove();
+                                this.time.removeEvent(this.rewardTimer);
+                            }
+                            this.rewardTimer = this.time.addEvent({
+                                delay: 3000,
+                                callback: this.rewardCheck,
+                                args: [this],
+                                loop: false
                             });
+                            AdMob.showRewardVideoAd();
                             isRewardReady = false;
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
-                            }, () => {isRewardReady = true;});
-                            this.coinAds.destroy();
-                            this.coinText.destroy();
-                            this.getCoinText.destroy();
+                            });
                         } else {
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
-                            }, () => {isRewardReady = true;});
+                            });
                             toast_error(this, 'Video hazır değil');
                         }
                     });
         
-                    this.coinText = this.add.text(400,adsPos, coinText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
+                    this.coinText = this.add.text(400,this.adsPos, this.prizeText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
                     .setStyle({
                         fontSize: '60px',
                         fontFamily: 'RR',
@@ -415,7 +412,7 @@ class EndScreen extends Phaser.Scene{
                         color: '#ffffff',
                     })
                     .setOrigin(0.5,0.5);
-                    this.getCoinText = this.add.text(800,adsPos, getText)
+                    this.getCoinText = this.add.text(800,this.adsPos, getText)
                     .setStyle({
                         fontSize: '45px',
                         fontFamily: 'RR',
@@ -428,40 +425,39 @@ class EndScreen extends Phaser.Scene{
 
                 if(game_type == "passion" && prize_type==0)
                 {
-                    this.heartAds = this.add.image(540,adsPos,'HeartAds');
+                    this.heartAds = this.add.image(540,this.adsPos,'HeartAds');
                     this.heartAds.setInteractive().on('pointerdown', () => {
                         if(sound_enable)
                             this.button_audio.play();
                         if(isRewardReady){
-                            AdMob.showRewardVideoAd( () => {
-                                Client.prize(coinText * multiplier, 0, 0);
-                                this.addedText = this.add.text(540,adsPos, (coinText* multiplier) + ' can kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
-                                .setStyle({
-                                    fontSize: '80px',
-                                    fontFamily: 'RR',
-                                    fontWeight: 'bold',
-                                    color: '#ffffff',
-                                })
-                                .setOrigin(0.5,0.5);
+                            isRewardPassed = false;
+                            if(this.rewardTimer)
+                            {
+                                this.rewardTimer.remove();
+                                this.time.removeEvent(this.rewardTimer);
+                            }
+                            this.rewardTimer = this.time.addEvent({
+                                delay: 3000,
+                                callback: this.rewardCheck,
+                                args: [this],
+                                loop: false
                             });
+                            AdMob.showRewardVideoAd();
                             isRewardReady = false;
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
-                            }, () => {isRewardReady = true;});
-                            this.heartAds.destroy();
-                            this.heartText.destroy();
-                            this.getHeartText.destroy();
+                            });
                         } else {
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
-                            }, () => {isRewardReady = true;});
-                            toast_error(this, 'RewardVideo is not Ready.');
+                            });
+                            toast_error(this, 'Video hazır değil');
                         }
                     });
         
-                    this.heartText = this.add.text(400,adsPos, coinText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
+                    this.heartText = this.add.text(400,this.adsPos, this.prizeText, { fixedWidth: 160, fixedHeight: 60, align:'center' })
                     .setStyle({
                         fontSize: '60px',
                         fontFamily: 'RR',
@@ -469,7 +465,7 @@ class EndScreen extends Phaser.Scene{
                         color: '#ffffff',
                     })
                     .setOrigin(0.5,0.5);
-                    this.getHeartText = this.add.text(800,adsPos, getText)
+                    this.getHeartText = this.add.text(800,this.adsPos, getText)
                     .setStyle({
                         fontSize: '45px',
                         fontFamily: 'RR',
@@ -571,6 +567,10 @@ class EndScreen extends Phaser.Scene{
     update(){
     }
 
+    rewardCheck(scene){
+        isRewardPassed = true;        
+    }
+
     updateTimer(scene){
         let current_time = Number.parseInt(scene.timeText.text) - 1;
         if(current_time < 0)
@@ -592,5 +592,60 @@ class EndScreen extends Phaser.Scene{
     }
 
     updateResult(){
+    }
+
+    processEndReward(){
+        if(isRewardPassed)
+        {
+            if((game_type != "daily" && game_type != "passion") || (game_type == "passion" && prize_type==1)){
+                this.pointAds.destroy();
+                this.pointText.destroy();
+                this.getPointText.destroy();
+                Client.prize(0, this.prizeText * this.multiplier, 0);
+                this.addedText = this.add.text(540,this.adsPos, (this.prizeText* this.multiplier) + ' puan kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                .setStyle({
+                    fontSize: '80px',
+                    fontFamily: 'RR',
+                    fontWeight: 'bold',
+                    color: '#ffffff',
+                })
+                .setOrigin(0.5,0.5);
+            }
+            if(game_type == "daily" || (game_type == "passion" && prize_type==2))
+            {
+                this.coinAds.destroy();
+                this.coinText.destroy();
+                this.getCoinText.destroy();
+                Client.prize(0, 0, this.prizeText * this.multiplier);
+                this.addedText = this.add.text(540,this.adsPos, (this.prizeText* this.multiplier) + ' jeton kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                .setStyle({
+                    fontSize: '80px',
+                    fontFamily: 'RR',
+                    fontWeight: 'bold',
+                    color: '#ffffff',
+                })
+                .setOrigin(0.5,0.5);
+            }
+            if(game_type == "passion" && prize_type==0)
+            {
+                this.heartAds.destroy();
+                this.heartText.destroy();
+                this.getHeartText.destroy();
+                Client.prize(this.prizeText * this.multiplier, 0, 0);
+                this.addedText = this.add.text(540,this.adsPos, (this.prizeText* this.multiplier) + ' can kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+                .setStyle({
+                    fontSize: '80px',
+                    fontFamily: 'RR',
+                    fontWeight: 'bold',
+                    color: '#ffffff',
+                })
+                .setOrigin(0.5,0.5);
+            }
+            isRewardPassed = false;
+        } else {
+            scene.rewardTimer.remove();
+            scene.time.removeEvent(scene.rewardTimer);
+            scene.rewardTimer = undefined;
+        }
     }
 }
