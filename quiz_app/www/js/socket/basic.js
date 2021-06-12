@@ -3,7 +3,12 @@
  */
 
 var Client = {};
-Client.socket = io("https://1word1action.com/", {secure: true});
+Client.socket = io("https://1word1action.com/", {
+    withCredentials: true,
+    extraHeaders: {
+      "1word1action-header": "secure"
+    }
+  });
 // Client.socket = io("http://192.168.104.55:8081/");
 // Client.socket = io("http://quizpuzzle.chileracing.net/");
 
