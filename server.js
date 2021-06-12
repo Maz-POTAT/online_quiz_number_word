@@ -7,7 +7,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
     cors: {
-      origin: "https://1word1action.com",
+      origin: "https://www.1word1action.com",
       methods: ["GET", "POST"],
       allowedHeaders: ["1word1action-header"],
       credentials: true

@@ -3,7 +3,7 @@
  */
 
 var Client = {};
-Client.socket = io("https://1word1action.com/", {
+Client.socket = io("https://www.1word1action.com/", {
     withCredentials: true,
     extraHeaders: {
       "1word1action-header": "secure"
