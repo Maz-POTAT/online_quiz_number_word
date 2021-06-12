@@ -30,7 +30,9 @@ console.log = function(d) { //
 
 const port = process.env.PORT || 8081;
 // const baseUrl = '0.0.0.0';
-const baseUrl = '37.148.213.22';
+
+const baseUrl = '1word1action.com';
+// const baseUrl = '37.148.213.22';
 // const baseUrl = 'quizpuzzle.chileracing.net'
 
 app.use(express.static(__dirname + '/public'));
