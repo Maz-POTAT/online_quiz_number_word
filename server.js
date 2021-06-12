@@ -28,7 +28,7 @@ console.log = function(d) { //
   log_stdout.write( now.toLocaleTimeString()+ ' ' + util.format(d) + '\n');
 };
 
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 80;
 // const baseUrl = '0.0.0.0';
 
 const baseUrl = '1word1action.com';
