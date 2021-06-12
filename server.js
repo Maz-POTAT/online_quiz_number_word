@@ -4,7 +4,7 @@ const util = require('util');
 const ejs = require('ejs');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
-const server = require('http').Server(app);
+const server = require('https').Server(app);
 const io = require('socket.io')(server);
 
 const socketSrc = require('./tasks/socket');
