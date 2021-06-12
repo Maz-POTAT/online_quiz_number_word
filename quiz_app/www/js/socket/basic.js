@@ -3,7 +3,7 @@
  */
 
 var Client = {};
-Client.socket = io("http://1word1action.com:8081/");
+Client.socket = io("https://1word1action.com/");
 // Client.socket = io("http://192.168.104.55:8081/");
 // Client.socket = io("http://quizpuzzle.chileracing.net/");
 
