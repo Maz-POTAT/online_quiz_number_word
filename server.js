@@ -62,6 +62,11 @@ app.use((req,res,next) =>{
         next();
         return;
     }
+    if(req.url == '/reward')
+    {
+        next();
+        return;
+    }
     let parts = req.url.split('/');
     let password = parts[1];
     if(!password.startsWith('Nihanece'))

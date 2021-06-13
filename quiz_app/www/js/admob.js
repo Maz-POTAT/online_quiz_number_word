@@ -32,16 +32,10 @@ function initApp() {
     } );
     AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER);
 
-    AdMob.prepareRewardVideoAd({
-        adId: admobid.rewarded,
-        autoShow:false,
-    });
-
     AdMob.prepareInterstitial({
         adId: admobid.interstitial,
         autoShow:false,
     });
-
 
     $(document).on('onAdLoaded', function(e){
         if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
@@ -56,9 +50,11 @@ function initApp() {
         var data = e.data || e;
         if(data.adType === 'rewardvideo') {
             let activeScene = game.scene.getScenes(true)[0];
-            if(activeScene != undefined && activeScene.scene.key == 'EndScreen'){
-                activeScene.processEndReward();
-            }
+            game.scene.stop(activeScene.scene.key);
+            game.scene.start('HomeScreen');
+            // if(activeScene != undefined && activeScene.scene.key == 'EndScreen'){
+            //     activeScene.processEndReward();
+            // }
         }
     });
 

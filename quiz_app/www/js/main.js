@@ -31,7 +31,6 @@ var invite_name = "";
 var room_id = "";
 var isInterstitialReady = false;
 var isRewardReady = false;
-var isRewardPassed = false;
 const config = {
     type: Phaser.AUTO,
     scale: {

@@ -156,6 +156,10 @@ async function onRoomTime(room_id, nStep){
 
 
 const exportedMethods = {
+    async reward(res, data){
+        console.log(data);
+    },
+
     async onHeartSupply(io) {
         //Supply heart to all users every 30mins
         await users.updateUserRank();

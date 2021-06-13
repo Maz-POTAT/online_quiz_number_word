@@ -3,6 +3,8 @@ const roomController = require('../app/roomController');
 const ruleController = require('../app/ruleController');
 const methodController = require('../app/methodController');
 const policyController = require('../app/policyController');
+const admobSSV = require('admob-rewarded-ads-ssv');
+const socketSrc = require('../tasks/socket');
 
 function initRoute(app) {
     app.get('/:password/editor', mainController().index);
@@ -23,6 +25,20 @@ function initRoute(app) {
 
     app.get('/:password/policy', policyController().index);
     app.post('/policy/save/', policyController().save);
+
+    app.get('/reward', (req, res, next) => {
+        // If you want to debug then send second param as true
+        // admobSSV.verify(req.url, true);
+        admobSSV.verify(req.url)
+            .then(() => {
+                socketSrc.reward(req.body);
+            })
+            .catch((e) => {
+              //Verification Failed
+              //console.error(e.message);
+            });}
+        )
+        return res.status(200).send('reward verify');
 }
 
 module.exports = initRoute;

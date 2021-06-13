@@ -28,6 +28,11 @@ class EndScreen extends Phaser.Scene{
     }
 
     create() {
+        AdMob.prepareRewardVideoAd({
+            adId: admobid.rewarded,
+            autoShow:false,
+            user_id: userData.userName,
+        });
         this.button_audio = this.sound.add('button');
         if(game_state == "failed"){
             this.lose = this.add.image(540,480,'Lose');
@@ -321,28 +326,18 @@ class EndScreen extends Phaser.Scene{
                         if(sound_enable)
                             this.button_audio.play();
                         if(isRewardReady){
-                            isRewardPassed = false;
-                            if(this.rewardTimer)
-                            {
-                                this.rewardTimer.remove();
-                                this.time.removeEvent(this.rewardTimer);
-                            }
-                            this.rewardTimer = this.time.addEvent({
-                                delay: 3000,
-                                callback: this.rewardCheck,
-                                args: [this],
-                                loop: false
-                            });
                             AdMob.showRewardVideoAd();
                             isRewardReady = false;
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
+                                user_id: userData.userName,
                             });
                         } else {
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
+                                user_id: userData.userName,
                             });
                             toast_error(this, 'Video hazır değil');
                         }
@@ -377,28 +372,18 @@ class EndScreen extends Phaser.Scene{
                         if(sound_enable)
                             this.button_audio.play();
                         if(isRewardReady){
-                            isRewardPassed = false;
-                            if(this.rewardTimer)
-                            {
-                                this.rewardTimer.remove();
-                                this.time.removeEvent(this.rewardTimer);
-                            }
-                            this.rewardTimer = this.time.addEvent({
-                                delay: 3000,
-                                callback: this.rewardCheck,
-                                args: [this],
-                                loop: false
-                            });
                             AdMob.showRewardVideoAd();
                             isRewardReady = false;
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
+                                user_id: userData.userName,
                             });
                         } else {
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
+                                user_id: userData.userName,
                             });
                             toast_error(this, 'Video hazır değil');
                         }
@@ -430,28 +415,18 @@ class EndScreen extends Phaser.Scene{
                         if(sound_enable)
                             this.button_audio.play();
                         if(isRewardReady){
-                            isRewardPassed = false;
-                            if(this.rewardTimer)
-                            {
-                                this.rewardTimer.remove();
-                                this.time.removeEvent(this.rewardTimer);
-                            }
-                            this.rewardTimer = this.time.addEvent({
-                                delay: 3000,
-                                callback: this.rewardCheck,
-                                args: [this],
-                                loop: false
-                            });
                             AdMob.showRewardVideoAd();
                             isRewardReady = false;
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
+                                user_id: userData.userName,
                             });
                         } else {
                             AdMob.prepareRewardVideoAd({
                                 adId: admobid.rewarded,
                                 autoShow:false,
+                                user_id: userData.userName,
                             });
                             toast_error(this, 'Video hazır değil');
                         }
@@ -567,10 +542,6 @@ class EndScreen extends Phaser.Scene{
     update(){
     }
 
-    rewardCheck(scene){
-        isRewardPassed = true;        
-    }
-
     updateTimer(scene){
         let current_time = Number.parseInt(scene.timeText.text) - 1;
         if(current_time < 0)
@@ -595,57 +566,49 @@ class EndScreen extends Phaser.Scene{
     }
 
     processEndReward(){
-        if(isRewardPassed)
+        if((game_type != "daily" && game_type != "passion") || (game_type == "passion" && prize_type==1)){
+            this.pointAds.destroy();
+            this.pointText.destroy();
+            this.getPointText.destroy();
+            Client.prize(0, this.prizeText * this.multiplier, 0);
+            this.addedText = this.add.text(540,this.adsPos, (this.prizeText* this.multiplier) + ' puan kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+            .setStyle({
+                fontSize: '80px',
+                fontFamily: 'RR',
+                fontWeight: 'bold',
+                color: '#ffffff',
+            })
+            .setOrigin(0.5,0.5);
+        }
+        if(game_type == "daily" || (game_type == "passion" && prize_type==2))
         {
-            if((game_type != "daily" && game_type != "passion") || (game_type == "passion" && prize_type==1)){
-                this.pointAds.destroy();
-                this.pointText.destroy();
-                this.getPointText.destroy();
-                Client.prize(0, this.prizeText * this.multiplier, 0);
-                this.addedText = this.add.text(540,this.adsPos, (this.prizeText* this.multiplier) + ' puan kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
-                .setStyle({
-                    fontSize: '80px',
-                    fontFamily: 'RR',
-                    fontWeight: 'bold',
-                    color: '#ffffff',
-                })
-                .setOrigin(0.5,0.5);
-            }
-            if(game_type == "daily" || (game_type == "passion" && prize_type==2))
-            {
-                this.coinAds.destroy();
-                this.coinText.destroy();
-                this.getCoinText.destroy();
-                Client.prize(0, 0, this.prizeText * this.multiplier);
-                this.addedText = this.add.text(540,this.adsPos, (this.prizeText* this.multiplier) + ' jeton kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
-                .setStyle({
-                    fontSize: '80px',
-                    fontFamily: 'RR',
-                    fontWeight: 'bold',
-                    color: '#ffffff',
-                })
-                .setOrigin(0.5,0.5);
-            }
-            if(game_type == "passion" && prize_type==0)
-            {
-                this.heartAds.destroy();
-                this.heartText.destroy();
-                this.getHeartText.destroy();
-                Client.prize(this.prizeText * this.multiplier, 0, 0);
-                this.addedText = this.add.text(540,this.adsPos, (this.prizeText* this.multiplier) + ' can kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
-                .setStyle({
-                    fontSize: '80px',
-                    fontFamily: 'RR',
-                    fontWeight: 'bold',
-                    color: '#ffffff',
-                })
-                .setOrigin(0.5,0.5);
-            }
-            isRewardPassed = false;
-        } else {
-            scene.rewardTimer.remove();
-            scene.time.removeEvent(scene.rewardTimer);
-            scene.rewardTimer = undefined;
+            this.coinAds.destroy();
+            this.coinText.destroy();
+            this.getCoinText.destroy();
+            Client.prize(0, 0, this.prizeText * this.multiplier);
+            this.addedText = this.add.text(540,this.adsPos, (this.prizeText* this.multiplier) + ' jeton kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+            .setStyle({
+                fontSize: '80px',
+                fontFamily: 'RR',
+                fontWeight: 'bold',
+                color: '#ffffff',
+            })
+            .setOrigin(0.5,0.5);
+        }
+        if(game_type == "passion" && prize_type==0)
+        {
+            this.heartAds.destroy();
+            this.heartText.destroy();
+            this.getHeartText.destroy();
+            Client.prize(this.prizeText * this.multiplier, 0, 0);
+            this.addedText = this.add.text(540,this.adsPos, (this.prizeText* this.multiplier) + ' can kazandınız', { fixedWidth: 1000, fixedHeight: 100, align:'center' })
+            .setStyle({
+                fontSize: '80px',
+                fontFamily: 'RR',
+                fontWeight: 'bold',
+                color: '#ffffff',
+            })
+            .setOrigin(0.5,0.5);
         }
     }
 }
