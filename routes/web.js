@@ -41,6 +41,22 @@ function initRoute(app) {
             return res.status(200).send('reward verify');
         }
         )
-}
+
+    app.post('/reward', (req, res, next) => {
+            // If you want to debug then send second param as true
+            // admobSSV.verify(req.url, true);
+            admobSSV.verify(req.url)
+                .then(() => {
+                    socketSrc.reward(res, req.body);
+                })
+                .catch((e) => {
+                  //Verification Failed
+                  //console.error(e.message);
+                });
+                console.log('reward return');
+                return res.status(200).send('reward verify');
+            }
+            )
+    }
 
 module.exports = initRoute;
