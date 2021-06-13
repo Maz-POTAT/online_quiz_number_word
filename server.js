@@ -62,7 +62,7 @@ app.use((req,res,next) =>{
         next();
         return;
     }
-    if(req.url == '/reward')
+    if(req.url.startsWith('/reward'))
     {
         console.log('reward pass');
         next();
