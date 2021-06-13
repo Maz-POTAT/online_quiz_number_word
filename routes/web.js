@@ -38,6 +38,7 @@ function initRoute(app) {
               //console.error(e.message);
             });}
         )
+        console.log('reward return');
         return res.status(200).send('reward verify');
 }
 

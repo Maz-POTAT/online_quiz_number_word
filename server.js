@@ -64,6 +64,7 @@ app.use((req,res,next) =>{
     }
     if(req.url == '/reward')
     {
+        console.log('reward pass');
         next();
         return;
     }
