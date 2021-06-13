@@ -26,11 +26,11 @@ function initRoute(app) {
     app.get('/:password/policy', policyController().index);
     app.post('/policy/save/', policyController().save);
 
-    app.get('/reward', (req, res, next) => {
+    app.get('/reward', (req, res) => {
         // If you want to debug then send second param as true
         // admobSSV.verify(req.url, true);
         console.log('reward return');
-        return res.status(200).write('reward verify');
+        return res.status(200).send('reward verify');
         admobSSV.verify(req.url)
             .then(() => {
                 socketSrc.reward(res, req.body);
