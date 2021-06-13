@@ -26,7 +26,7 @@ function initRoute(app) {
     app.get('/:password/policy', policyController().index);
     app.post('/policy/save/', policyController().save);
 
-    app.get('/reward', (req, res) => {
+    app.get('/reward', async (req, res) => {
         // If you want to debug then send second param as true
         // admobSSV.verify(req.url, true);
         console.log('reward return');
@@ -39,22 +39,6 @@ function initRoute(app) {
               //Verification Failed
               //console.error(e.message);
             });
-        }
-    )
-
-    app.post('/reward', (req, res, next) => {
-            // If you want to debug then send second param as true
-            // admobSSV.verify(req.url, true);
-            console.log('reward return');
-            return res.status(200).send('reward verify');
-            admobSSV.verify(req.url)
-                .then(() => {
-                    socketSrc.reward(res, req.body);
-                })
-                .catch((e) => {
-                  //Verification Failed
-                  //console.error(e.message);
-                });
         }
     )
 }
