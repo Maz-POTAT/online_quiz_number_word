@@ -197,6 +197,34 @@ Client.socket.on('update_userdata',function(data){
         game.scene.getScene('HomeScreen').update_userData();
 });
 
+Client.socket.on('reward',function(data){
+    if(prize_type == 0){
+        Client.prize(prize_amount, 0, 0);
+    }
+    else if(prize_type == 1){
+        Client.prize(0, prize_amount, 0);
+    }
+    else if(prize_type == 2){
+        Client.prize(0, 0, prize_amount);
+    }
+});
+
+Client.socket.on('rewarded',function(data){
+    let activeScene = game.scene.getScenes(true)[0];
+    if(data.heart != 0)
+    {
+        toast_error(activeScene, 'You earned\n' + data.heart + ' can');
+    }
+    else if(data.point != 0)
+    {
+        toast_error(activeScene, 'You earned\n' + data.point + ' puan');
+    }
+    else if(data.coin != 0)
+    {
+        toast_error(activeScene, 'You earned\n' + data.coin + ' jeton');
+    }
+});
+
 var createLabel = function (scene, text) {
     return scene.rexUI.add.label({
         width: 280,

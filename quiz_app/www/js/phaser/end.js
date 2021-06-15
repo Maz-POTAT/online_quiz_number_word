@@ -326,6 +326,7 @@ class EndScreen extends Phaser.Scene{
                         if(sound_enable)
                             this.button_audio.play();
                         if(isRewardReady){
+                            prize_amount *= this.multiplier;
                             AdMob.showRewardVideoAd();
                             isRewardReady = false;
                             AdMob.prepareRewardVideoAd({
@@ -372,6 +373,7 @@ class EndScreen extends Phaser.Scene{
                         if(sound_enable)
                             this.button_audio.play();
                         if(isRewardReady){
+                            prize_amount *= this.multiplier;
                             AdMob.showRewardVideoAd();
                             isRewardReady = false;
                             AdMob.prepareRewardVideoAd({
@@ -415,6 +417,7 @@ class EndScreen extends Phaser.Scene{
                         if(sound_enable)
                             this.button_audio.play();
                         if(isRewardReady){
+                            prize_amount *= this.multiplier;
                             AdMob.showRewardVideoAd();
                             isRewardReady = false;
                             AdMob.prepareRewardVideoAd({

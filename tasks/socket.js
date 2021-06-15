@@ -156,8 +156,11 @@ async function onRoomTime(room_id, nStep){
 
 
 const exportedMethods = {
-    async reward(res, data){
+    async reward(data){
         console.log(data);
+        if(players[data.user_id]){
+            io.sockets.sockets.get(players[data.user_id]).emit(`reward`, {});
+        }
     },
 
     async onHeartSupply(io) {
@@ -551,7 +554,10 @@ const exportedMethods = {
                 console.log('prize request recevied : ', data);
 
                 users.addUserValue(data.username, data).then((user) => {
-                    if (user) socket.emit('update_userdata', {result: user.result});
+                    if (user){
+                        socket.emit('update_userdata', {result: user.result});
+                        socket.emit('rewarded', data);
+                    }
                     else console.log(`${data.username} could not find while process prize`);
                 });
             });

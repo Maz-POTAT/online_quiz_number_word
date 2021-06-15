@@ -29,18 +29,17 @@ function initRoute(app) {
     app.get('/reward', async (req, res) => {
         // If you want to debug then send second param as true
         // admobSSV.verify(req.url, true);
-        console.log('reward return');
-        return res.status(200).send('reward verify');
         admobSSV.verify(req.url)
             .then(() => {
-                socketSrc.reward(res, req.body);
+                socketSrc.reward(req.body);
             })
             .catch((e) => {
               //Verification Failed
               //console.error(e.message);
             });
-        }
-    )
+            console.log('reward return');
+            return res.status(200).send('reward verify');
+    })
 }
 
 module.exports = initRoute;
