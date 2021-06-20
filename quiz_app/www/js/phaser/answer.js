@@ -196,7 +196,7 @@ class AnswerScreen extends Phaser.Scene{
                     else if(results[0].log[i].operator == 3)
                         oneOperation += '/';
                     oneOperation += ' ' + results[0].log[i].y + " = " + results[0].log[i].equal;
-                    this.add.text(540, 600 + 100 * i, oneOperation, {
+                    this.add.text(540, 650 + 100 * i, oneOperation, {
                         fontFamily: 'RR',
                         fontWeight: 'bold',
                         fontSize: '80px',
