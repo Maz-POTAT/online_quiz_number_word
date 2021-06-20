@@ -288,7 +288,7 @@ class NumberGameScreen extends Phaser.Scene{
             // }
             cur_number++;
             game.scene.stop('NumberGameScreen');
-            game.scene.start('EndScreen');
+            game.scene.start('AnswerScreen');
         }
         else if(game_type == "battle" || game_type == "tournament")
         {
@@ -342,7 +342,7 @@ class NumberGameScreen extends Phaser.Scene{
                 // }
                 cur_number++;
                 game.scene.stop('NumberGameScreen');
-                game.scene.start('EndScreen');
+                game.scene.start('AnswerScreen');
             }
             else if(game_type == "battle" || game_type == "tournament")
             {

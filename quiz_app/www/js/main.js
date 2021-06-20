@@ -6,6 +6,7 @@
 var userData = {};
 var oppoData = {};
 var gameData = {};
+var mix_word = {};
 
 var tournament_list = [];
 var rank_list = [];
@@ -44,7 +45,7 @@ const config = {
     scene: [LoginScreen, HomeScreen, TournamentScreen, NumberGameScreen, 
         EndScreen, WordGameScreen, BattleScreen, PassionScreen, 
         RegisterScreen, BattleWaitScreen, TournamentWaitScreen,
-        MenuScreen, RankScreen, RuleScreen, MethodScreen, PolicyScreen, ProfileScreen ],
+        MenuScreen, RankScreen, RuleScreen, MethodScreen, PolicyScreen, ProfileScreen, AnswerScreen ],
     dom: {
         createContainer: true
     },

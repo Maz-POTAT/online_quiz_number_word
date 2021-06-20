@@ -45,6 +45,14 @@ function initApp() {
         }
     });
 
+    $(document).on('onAdLoaded', function(e){
+        if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
+        var data = e.data || e;
+        if(data.adType === 'rewardvideo') {
+            isRewardReady = true;
+        }
+    });
+
     $(document).on('onAdDismiss', function(e){
         if(typeof e.originalEvent !== 'undefined') e = e.originalEvent;
         var data = e.data || e;

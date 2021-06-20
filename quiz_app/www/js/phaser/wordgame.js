@@ -47,7 +47,7 @@ class WordGameScreen extends Phaser.Scene{
         this.result = "";
 
         let quiz_word = gameData.wordData[cur_word].word.split('');
-        let mix_word = [];
+        mix_word = [];
         while (quiz_word.length > 0) {
             let character = '';
             if(Math.random() >= 0.5)
@@ -189,7 +189,7 @@ class WordGameScreen extends Phaser.Scene{
             }
             cur_word++;
             game.scene.stop('WordGameScreen');
-            game.scene.start('EndScreen');
+            game.scene.start('AnswerScreen');
         }
         else if(game_type == "battle" || game_type == "tournament")
         {
@@ -243,7 +243,7 @@ class WordGameScreen extends Phaser.Scene{
                 // }
                 cur_word++;
                 game.scene.stop('WordGameScreen');
-                game.scene.start('EndScreen');
+                game.scene.start('AnswerScreen');
             }
             else if(game_type == "battle" || game_type == "tournament")
             {

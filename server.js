@@ -13,6 +13,8 @@ const io = require('socket.io')(server, {
       credentials: true
     }});
 
+// const io = require('socket.io')(server);
+
 const socketSrc = require('./tasks/socket');
 
 const session = require('express-session')({
