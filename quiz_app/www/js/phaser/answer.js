@@ -9,7 +9,7 @@ var results = [];
 function pushLog(logs, offset){
     bInsert = false;
     for(let i=0; i<results.length; i++){
-        if(results.offset > offset){
+        if(results.offset >= offset){
             results.splice(i,0,{log:logs, offset:offset});
             return;
         }
@@ -206,7 +206,7 @@ class AnswerScreen extends Phaser.Scene{
             }
         }
         this.timer = this.time.addEvent({
-            delay: 3000,
+            delay: 5000,
             callback: this.updateTimer,
             args: [this],
             loop: false
