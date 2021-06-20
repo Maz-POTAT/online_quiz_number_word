@@ -129,7 +129,7 @@ class AnswerScreen extends Phaser.Scene{
         this.graphics.fillRoundedRect(250,100,580,150, 10);
         this.graphics.fillStyle(0xffffff, 1);
         this.graphics.fillRoundedRect(200,250,680,1000, 10);
-        this.add.text(540, 500, questionWord, {
+        this.add.text(540, 175, 'Answer', {
             fontFamily: 'RR',
             fontWeight: 'bold',
             fontSize: '100px',
