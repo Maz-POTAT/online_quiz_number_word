@@ -121,13 +121,21 @@ class AnswerScreen extends Phaser.Scene{
     }
 
     create() {
+        bFound = false;
+        results = [];
         let passedNumber = 0;
         this.graphics = this.add.graphics();
         this.graphics.fillStyle(0xfa5c00, 1);
-        this.graphics.fillRoundedRect(250,100,830,250, 10);
+        this.graphics.fillRoundedRect(250,100,580,150, 10);
         this.graphics.fillStyle(0xffffff, 1);
-        this.graphics.fillRoundedRect(200,250,880,1300, 10);
-        if(cur_number>=5 && cur_word >= 1){
+        this.graphics.fillRoundedRect(200,250,680,1000, 10);
+        this.add.text(540, 500, questionWord, {
+            fontFamily: 'RR',
+            fontWeight: 'bold',
+            fontSize: '100px',
+            color: "#ffffff",
+        }).setOrigin(0.5, 0.5);
+        if(cur_number>=gameData.numData.length && cur_word >= 1){
             passedNumber = cur_word - 1;
 
             let questionWord = '';
