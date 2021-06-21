@@ -23,7 +23,7 @@ function calcTargetNumber(arrayNumbers, resultNumber, logs){
             if(i == j)
                 continue;
             for(let k=0; k<4; k++){
-                console.log(arryNumbers, i, j, k);
+                console.log(arrayNumbers, i, j, k);
                 if(bFound)
                     return;
                 let number = 0;
