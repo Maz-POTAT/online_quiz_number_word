@@ -7,6 +7,7 @@ var userData = {};
 var oppoData = {};
 var gameData = {};
 var mix_word = {};
+var numberResults = [];
 
 var tournament_list = [];
 var rank_list = [];

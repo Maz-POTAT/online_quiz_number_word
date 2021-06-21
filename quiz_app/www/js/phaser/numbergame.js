@@ -3,6 +3,65 @@
  * E-mail: jerome.renaux@gmail.com
  */
 
+function pushLog(logs, offset){
+    for(let i=0; i<numberResults.length; i++){
+        if(numberResults[i].offset > offset || (numberResults[i].offset == offset && numberResults[i].log.length >= logs.length)){
+            numberResults.splice(i,0,{log:logs, offset:offset});
+            return;
+        }
+    }
+    numberResults.push({log:logs, offset:offset});
+}
+
+async function calcTargetNumber(arrayNumbers, resultNumber, logs){
+    for(let i=0; i<arrayNumbers.length; i++){
+        for(let j=0; j<arrayNumbers.length; j++){
+            if(i == j)
+                continue;
+            for(let k=0; k<4; k++){
+                let number = 0;
+                if(k==0){
+                    number = arrayNumbers[i] + arrayNumbers[j];
+                }
+                else if(k==1){
+                    number = arrayNumbers[i] - arrayNumbers[j];
+                    if(number<=0)
+                        continue;
+                }
+                else if(k==2){
+                    number = arrayNumbers[i] * arrayNumbers[j];
+                    if(number>=10000)
+                        continue;
+                }
+                else if(k==3){
+                    number = Number.parseInt(arrayNumbers[i] / arrayNumbers[j]);
+                    if(arrayNumbers[i] % arrayNumbers[j] != 0)
+                        continue;
+                }
+                let newArray = [number];
+                for(let p=0; p<arrayNumbers.length; p++){
+                    if(p!=i && p!=j){
+                        newArray.push(arrayNumbers[p]);
+                    }
+                }
+                let obj = {x:arrayNumbers[i], y:arrayNumbers[j], operator:k, equal:number};
+                let newLog = [...logs, obj];
+                if(number == resultNumber)
+                {
+                    pushLog(newLog, Math.abs(number - resultNumber));
+                    return;
+                }
+                else if(Math.abs(number - resultNumber)<=3){
+                    pushLog(newLog, Math.abs(number - resultNumber));
+                }
+                if(newArray.length>1){
+                    calcTargetNumber(newArray, resultNumber, newLog);
+                }
+            }
+        }
+    }
+}
+
 class NumberGameScreen extends Phaser.Scene{
     constructor(){
         super({key: "NumberGameScreen"});
@@ -17,6 +76,9 @@ class NumberGameScreen extends Phaser.Scene{
     }
 
     create() {
+        numberResults = [];
+        calcTargetNumber(gameData.numData[cur_number].array, gameData.numData[cur_number].result, []);
+
         this.action_audio = this.sound.add('action');
         this.start_audio = this.sound.add('start');
         if(sound_enable)
