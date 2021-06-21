@@ -23,82 +23,48 @@ function calcTargetNumber(arrayNumbers, resultNumber, logs){
             if(i == j)
                 continue;
             for(let k=0; k<4; k++){
+                console.log(arryNumbers, i, j, k);
                 if(bFound)
                     return;
-                let number1 = 0, number2 = 0;
-                bNumber1 = true;
-                bNumber2 = true;
+                let number = 0;
+                bNumber = true;
                 if(k==0){
-                    number1 = arrayNumbers[i] + arrayNumbers[j];
-                    number2 = arrayNumbers[j] + arrayNumbers[i];
+                    number = arrayNumbers[i] + arrayNumbers[j];
                 }
                 else if(k==1){
-                    number1 = arrayNumbers[i] - arrayNumbers[j];
-                    number2 = arrayNumbers[j] - arrayNumbers[i];
+                    number = arrayNumbers[i] - arrayNumbers[j];
+                    if(number<=0)
+                        continue;
                 }
                 else if(k==2){
-                    number1 = arrayNumbers[i] * arrayNumbers[j];
-                    number2 = arrayNumbers[j] * arrayNumbers[i];
+                    number = arrayNumbers[i] * arrayNumbers[j];
+                    if(number>=10000)
+                        continue;
                 }
                 else if(k==3){
-                    number1 = Number.parseInt(arrayNumbers[i] / arrayNumbers[j]);
-                    if(arrayNumbers[i] % arrayNumbers[j] != 0){
-                        bNumber1 = false;
-                    }
-                    number2 = Number.parseInt(arrayNumbers[j] / arrayNumbers[i]);
-                    if(arrayNumbers[j] % arrayNumbers[i] != 0){
-                        bNumber2 = false;
+                    number = Number.parseInt(arrayNumbers[i] / arrayNumbers[j]);
+                    if(arrayNumbers[i] % arrayNumbers[j] != 0)
+                        continue;
+                }
+                let newArray = [number];
+                for(let p=0; p<arrayNumbers.length; p++){
+                    if(p!=i && p!=j){
+                        newArray.push(arrayNumbers[p]);
                     }
                 }
-                if(bNumber1){
-                    let newArray = [number1];
-                    for(let p=0; p<arrayNumbers.length; p++){
-                        if(p!=i && p!=j){
-                            newArray.push(arrayNumbers[p]);
-                        }
-                    }
-                    //let newLog = [];
-                    let obj = {x:arrayNumbers[i], y:arrayNumbers[j], operator:k, equal:number1};
-                    let newLog = [...logs, obj];
-                    //newLog.push({x:arrayNumbers[i], y:arrayNumbers[j], operator:k, equal:number1});
-                    if(number1 == resultNumber)
-                    {
-                        bFound = true;
-                        pushLog(newLog, Math.abs(number1 - resultNumber));
-                        return;
-                    }
-                    else if(Math.abs(number1 - resultNumber)<=3){
-                        pushLog(newLog, Math.abs(number1 - resultNumber));
-                    }
-                    if(newArray.length>1){
-                        calcTargetNumber(newArray, resultNumber, newLog);
-                    }
-                }
-                if(bFound)
+                let obj = {x:arrayNumbers[i], y:arrayNumbers[j], operator:k, equal:number};
+                let newLog = [...logs, obj];
+                if(number == resultNumber)
+                {
+                    bFound = true;
+                    pushLog(newLog, Math.abs(number - resultNumber));
                     return;
-                if(bNumber2){
-                    let newArray = [number2];
-                    for(let p=0; p<arrayNumbers.length; p++){
-                        if(p!=i && p!=j){
-                            newArray.push(arrayNumbers[p]);
-                        }
-                    }
-                    let obj = {x:arrayNumbers[j], y:arrayNumbers[i], operator:k, equal:number2};
-                    let newLog = [...logs, obj];
-                    // let newLog = logs;
-                    // newLog.push({x:arrayNumbers[j], y:arrayNumbers[i], operator:k, equal:number2});
-                    if(number2 == resultNumber)
-                    {
-                        bFound = true;
-                        pushLog(newLog, Math.abs(number2 - resultNumber));
-                        return;
-                    }
-                    else if(Math.abs(number2 - resultNumber)<=3){
-                        pushLog(newLog, Math.abs(number2 - resultNumber));
-                    }
-                    if(newArray.length>1){
-                        calcTargetNumber(newArray, resultNumber, newLog);
-                    }
+                }
+                else if(Math.abs(number - resultNumber)<=3){
+                    pushLog(newLog, Math.abs(number - resultNumber));
+                }
+                if(newArray.length>1){
+                    calcTargetNumber(newArray, resultNumber, newLog);
                 }
                 if(bFound)
                     return;
