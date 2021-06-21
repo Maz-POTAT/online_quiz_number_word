@@ -129,10 +129,16 @@ class AnswerScreen extends Phaser.Scene{
         this.graphics.fillRoundedRect(250,100,580,150, 10);
         this.graphics.fillStyle(0xffffff, 1);
         this.graphics.fillRoundedRect(200,250,680,1000, 10);
-        this.add.text(540, 175, 'Answer', {
+        this.add.text(540, 175, 'EN İYİ ÇÖZÜM', {
             fontFamily: 'RR',
             fontWeight: 'bold',
-            fontSize: '100px',
+            fontSize: '80px',
+            color: "#ffffff",
+        }).setOrigin(0.5, 0.5);
+        this.add.text(540, 1450, 'Cevabınız değerlendiriliyor', {
+            fontFamily: 'RR',
+            fontWeight: 'bold',
+            fontSize: '70px',
             color: "#ffffff",
         }).setOrigin(0.5, 0.5);
         if(cur_number>=gameData.numData.length && cur_word >= 1){
@@ -159,7 +165,7 @@ class AnswerScreen extends Phaser.Scene{
             calcTargetNumber(gameData.numData[passedNumber].array, gameData.numData[passedNumber].result, []);
             let questionNumber = '';
             for(let i=0; i<gameData.numData[passedNumber].array.length; i++)
-                questionNumber += gameData.numData[passedNumber].array[i] + '';
+                questionNumber += gameData.numData[passedNumber].array[i] + ' ';
 
             this.add.text(540, 350, questionNumber, {
                     fontFamily: 'RR',
