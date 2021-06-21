@@ -40,9 +40,9 @@ class BattleScreen extends Phaser.Scene{
             })
         .setOrigin(0.5,0.5);
 
-        this.userNameText = this.add.text(210, 495, 'Arkadaşınızın kullanıcı adını yazın', { fixedWidth: 800, fixedHeight: 32 })
+        this.userNameText = this.add.text(210, 490, 'Arkadaşınızın kullanıcı adını yazın', { fixedWidth: 800, fixedHeight: 50 })
         .setStyle({
-            fontSize: '28px',
+            fontSize: '40px',
             fontFamily: 'RR',
             fontWeight: 'bold',
             color: '#ffffff',

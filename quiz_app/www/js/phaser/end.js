@@ -65,7 +65,7 @@ class EndScreen extends Phaser.Scene{
 
             if(game_type == "stage")
             {
-                this.lostText = this.add.text(540, 850, 'ETABI\nGEÇEMEDİNİZ', { fixedWidth: 700, fixedHeight: 200, align:'center' })
+                this.lostText = this.add.text(540, 850, 'Etabı\ngeçemediniz', { fixedWidth: 700, fixedHeight: 200, align:'center' })
                 .setStyle({
                     fontSize: '80px',
                     fontFamily: 'RR',
@@ -75,7 +75,7 @@ class EndScreen extends Phaser.Scene{
                 .setOrigin(0.5,0.5);
             }
             else{ 
-                this.lostText = this.add.text(540, 850, 'KAYBETTİN!', { fixedWidth: 700, align:'center' })
+                this.lostText = this.add.text(540, 850, 'Bölümü\ngeçemediniz', { fixedWidth: 700, align:'center' })
                 .setStyle({
                     fontSize: '80px',
                     fontFamily: 'RR',
@@ -91,7 +91,7 @@ class EndScreen extends Phaser.Scene{
                 {
                     this.win = this.add.image(540,480,'Win');
                     if(game_type == "stage"){
-                        this.earnedPointText = this.add.text(360, 860, 'Kazandığınız\npuan', { fixedHeight: 120, align:'center' })
+                        this.earnedPointText = this.add.text(410, 850, 'Kazandığınız\npuan', { fixedHeight: 120, align:'center' })
                         .setStyle({
                             fontSize: '48px',
                             fontFamily: 'RR',
@@ -99,8 +99,8 @@ class EndScreen extends Phaser.Scene{
                             color: '#ffffff',
                         })
                         .setOrigin(0.5,0.5);
-                        this.pointBack = this.add.image(590,840,'Orange');
-                        this.pointText = this.add.text(590,840, cur_point, { fixedWidth: 160, fixedHeight: 60, align:'center' })
+                        this.pointBack = this.add.image(640,840,'Orange');
+                        this.pointText = this.add.text(640,840, cur_point, { fixedWidth: 160, fixedHeight: 60, align:'center' })
                         .setStyle({
                             fontSize: '60px',
                             fontFamily: 'RR',
@@ -109,7 +109,7 @@ class EndScreen extends Phaser.Scene{
                         })
                         .setOrigin(0.5,0.5);
                     } else {
-                        this.earnedPointText = this.add.text(360, 860, 'Kazandığınız\nJeton', { fixedHeight: 120, align:'center' })
+                        this.earnedPointText = this.add.text(410, 850, 'Kazandığınız\nJeton', { fixedHeight: 120, align:'center' })
                         .setStyle({
                             fontSize: '48px',
                             fontFamily: 'RR',
@@ -117,8 +117,8 @@ class EndScreen extends Phaser.Scene{
                             color: '#ffffff',
                         })
                         .setOrigin(0.5,0.5);
-                        this.pointBack = this.add.image(590,840,'Orange');
-                        this.pointText = this.add.text(590,840, cur_point>=10 ? 1:0, { fixedWidth: 160, fixedHeight: 60, align:'center' })
+                        this.pointBack = this.add.image(640,840,'Orange');
+                        this.pointText = this.add.text(640,840, cur_point>=10 ? 1:0, { fixedWidth: 160, fixedHeight: 60, align:'center' })
                         .setStyle({
                             fontSize: '60px',
                             fontFamily: 'RR',
@@ -206,7 +206,7 @@ class EndScreen extends Phaser.Scene{
                     else if(game_type == "passion")
                         showText = 'Kazandığınız Ödül';
                     this.win = this.add.image(540,400,'Win');
-                    this.gameFinishText = this.add.text(540,700, showText, { fixedWidth: 700, fixedHeight: 100, align:'center' })
+                    this.gameFinishText = this.add.text(540,800, showText, { fixedWidth: 700, fixedHeight: 100, align:'center' })
                     .setStyle({
                         fontSize: '50px',
                         fontFamily: 'RR',

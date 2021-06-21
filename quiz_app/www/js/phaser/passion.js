@@ -32,12 +32,12 @@ class PassionScreen extends Phaser.Scene{
         this.bonus_audio = this.sound.add('bonus');
         this.passion_board = this.add.image(540,700,'PassionBoard').setScale(1.7);
         this.passion_back = this.add.image(540,740,'PassionBack').setScale(1.7);
-        this.passion_flower = this.add.image(540,740,'Passion').setScale(1.7);
+        this.passion_flower = this.add.image(538,736,'Passion').setScale(1.6);
         this.lights = [];
-        this.lights.push(this.add.image(540,765,'PassionLight1').setScale(1.7));
-        this.lights.push(this.add.image(540,735,'PassionLight2').setScale(1.7));
-        this.lights.push(this.add.image(540,735,'PassionLight3').setScale(1.7));
-        this.lights.push(this.add.image(540,735,'PassionLight4').setScale(1.7));
+        this.lights.push(this.add.image(540,740,'PassionLight1').setScale(1.7));
+        this.lights.push(this.add.image(540,740,'PassionLight2').setScale(1.7));
+        this.lights.push(this.add.image(540,740,'PassionLight3').setScale(1.7));
+        this.lights.push(this.add.image(540,740,'PassionLight4').setScale(1.7));
         this.indicator = this.add.image(540,1110,'Indicator').setScale(1.7);
 
         this.lights_normal_tween = [];
@@ -80,8 +80,8 @@ class PassionScreen extends Phaser.Scene{
 
         this.turnOptions = {
             // prize names, starting from 12 o'clock going clockwise
-            slicePrizes: [2,100,1,3,50,2,3,1,20,2,100,1,3,50,2,3,1,20],
-            sliceTypes: [0,1,0,2,1,2,0,2,1,0,1,0,2,1,2,0,2,1],
+            slicePrizes: [10,1,2,50,3,1,25,2,75,3],
+            sliceTypes: [1,2,0,1,2,0,1,2,1,0],
          
             // wheel rotation duration, in milliseconds
             rotationTime:10000
@@ -123,7 +123,7 @@ class PassionScreen extends Phaser.Scene{
                     blendMode: 'ADD',
                     maxParticles: 100
                 });
-                let prize_index = Number.parseInt((this.passion_flower.angle+180)/20)%18;
+                let prize_index = Number.parseInt((this.passion_flower.angle+360)/36)%10;
                 prize_type = this.turnOptions.sliceTypes[prize_index];
                 prize_amount = this.turnOptions.slicePrizes[prize_index];
                 if(prize_type == 0){
