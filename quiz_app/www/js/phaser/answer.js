@@ -7,7 +7,6 @@ var bFound = false;
 var results = [];
 
 function pushLog(logs, offset){
-    bInsert = false;
     for(let i=0; i<results.length; i++){
         if(results[i].offset >= offset){
             results.splice(i,0,{log:logs, offset:offset});
@@ -17,17 +16,20 @@ function pushLog(logs, offset){
     results.push({log:logs, offset:offset});
 }
 
+var debugCount = 0;
+
 function calcTargetNumber(arrayNumbers, resultNumber, logs){
     for(let i=0; i<arrayNumbers.length; i++){
         for(let j=0; j<arrayNumbers.length; j++){
             if(i == j)
                 continue;
             for(let k=0; k<4; k++){
-                console.log(arrayNumbers, i, j, k);
+                debugCount++;
+                if(debugCount%100000 == 0)
+                    console.log(debugCount);
                 if(bFound)
                     return;
                 let number = 0;
-                bNumber = true;
                 if(k==0){
                     number = arrayNumbers[i] + arrayNumbers[j];
                 }
