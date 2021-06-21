@@ -180,7 +180,7 @@ class AnswerScreen extends Phaser.Scene{
             }
         }
         this.timer = this.time.addEvent({
-            delay: 5000,
+            delay: 10000,
             callback: this.updateTimer,
             args: [this],
             loop: false

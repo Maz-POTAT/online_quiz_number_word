@@ -142,7 +142,7 @@ async function onRoomTime(room_id, nStep){
                     });
                     setTimeout( function() {
                         onRoomTime(room_id, nStep+1);
-                    }, 90 * 1000);
+                    }, 95 * 1000);
                 }
                 await rooms.removeRoom({room_id: room_id});
                 kicked_client.leave(`game_of_${room_id}`);
@@ -222,7 +222,7 @@ const exportedMethods = {
                                     });
                                     setTimeout( function(){
                                         onRoomTime(room._id, 1);
-                                    }, 90 * 1000);
+                                    }, 95 * 1000);
                                 });
                             }
                         }
@@ -333,7 +333,7 @@ const exportedMethods = {
                                 });
                                 setTimeout( function(){
                                     onRoomTime(room_info.result._id, 10-room_info.result.remainNum);
-                                }, 90 * 1000);
+                                }, 95 * 1000);
                             }
                             await rooms.removeRoom({room_id: joinedInfo._id});
                             socket.leave(`game_of_${joinedInfo._id}`);
@@ -715,7 +715,7 @@ const exportedMethods = {
                             });
                             setTimeout( function(){
                                 onRoomTime(data.room_id, data.step+1);
-                            }, 90 * 1000);
+                            }, 95 * 1000);
                             console.log('All users are overed');
                         }
                         console.log('end is processed');
@@ -834,7 +834,7 @@ const exportedMethods = {
                                                     });
                                                     setTimeout( function(){
                                                         onRoomTime(data.roomId, 1);
-                                                    }, 90 * 1000);
+                                                    }, 95 * 1000);
                                                 });
                                             });
                                         } else {
@@ -928,7 +928,7 @@ const exportedMethods = {
                                                     .emit('online_start', { result: {roomId}, oppoData: user, gameData: { numData: numDataList, wordData: wordDataList } });
                                                 setTimeout(function () {
                                                     onRoomTime(roomId, 1)
-                                                }, 90 * 1000);
+                                                }, 95 * 1000);
                                             });
                                         });
                                         return;
