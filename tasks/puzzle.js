@@ -50,7 +50,7 @@ const generatedNumber = () => {
 const exportedMethods = {
 
   getNumberData() {
-    let data = {array: [1, 1, 1, 1, 1, 1], result: 450};
+    let data;// = {array: [1, 1, 1, 1, 1, 1], result: 450};
     while(data == undefined || data == 0) {
       data = generatedNumber()
     }
