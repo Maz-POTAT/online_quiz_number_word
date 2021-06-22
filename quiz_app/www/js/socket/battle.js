@@ -136,7 +136,7 @@ Client.socket.on('online_end',function(data){
         else
             cur_word++;
         game.scene.stop(activeScene.scene.key);
-        game.scene.start('EndScreen');
+        game.scene.start('AnswerScreen');
     }
     else
     {
@@ -151,7 +151,7 @@ Client.socket.on('remain_alone',function(data){
     console.log(data);
     game_state = 'remain_alone';
     game.scene.stop(activeScene.scene.key);
-    game.scene.start('EndScreen');
+    game.scene.start('AnswerScreen');
 });
 
 Client.socket.on('random_request',function(data){

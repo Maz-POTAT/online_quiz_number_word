@@ -75,7 +75,7 @@ class AnswerScreen extends Phaser.Scene{
                     color: "#fa5c00",
                 }).setOrigin(0.5, 0.5);
 
-            if(numberResults.length == 0){
+            if(numberResults == ''){
                 this.add.text(540, 700, 'No Answer', {
                     fontFamily: 'RR',
                     fontWeight: 'bold',
@@ -84,25 +84,12 @@ class AnswerScreen extends Phaser.Scene{
                 }).setOrigin(0.5, 0.5);
             }
             else{
-                for(let i=0; i<numberResults[0].log.length; i++){
-                    let oneOperation = '';
-                    oneOperation += numberResults[0].log[i].x + " ";
-                    if(numberResults[0].log[i].operator == 0)
-                        oneOperation += '+';
-                    else if(numberResults[0].log[i].operator == 1)
-                        oneOperation += '-';
-                    else if(numberResults[0].log[i].operator == 2)
-                        oneOperation += '*';
-                    else if(numberResults[0].log[i].operator == 3)
-                        oneOperation += '/';
-                    oneOperation += ' ' + numberResults[0].log[i].y + " = " + numberResults[0].log[i].equal;
-                    this.add.text(540, 650 + 100 * i, oneOperation, {
-                        fontFamily: 'RR',
-                        fontWeight: 'bold',
-                        fontSize: '80px',
-                        color: "#1d3d59",
-                    }).setOrigin(0.5, 0.5);
-                }
+                this.add.text(540, 850, numberResults, {
+                    fontFamily: 'RR',
+                    fontWeight: 'bold',
+                    fontSize: '60px',
+                    color: "#1d3d59",
+                }).setOrigin(0.5, 0.5);
             }
         }
         this.timer = this.time.addEvent({

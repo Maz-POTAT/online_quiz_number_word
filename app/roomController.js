@@ -35,7 +35,7 @@ function roomController(){
             let resData = {result: false};
             let start = newData.start;
 
-            const result = await rooms.createRoom({joiningFee: parseInt(newData.fee)/*, prize: parseInt(newData.prize)*/, startDateTime: parseInt(start)});
+            const result = await rooms.createRoom({username: 'tournament', joiningFee: parseInt(newData.fee)/*, prize: parseInt(newData.prize)*/, startDateTime: parseInt(start)});
             if(!result) res.status(500).send(resData);
             else {
                 resData = {result: result.id};

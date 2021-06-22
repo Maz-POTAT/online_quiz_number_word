@@ -75,7 +75,7 @@ class TournamentScreen extends Phaser.Scene{
             let bJoin = isJoined(tournament_list[i].joinUsers);
             let time = new Date(tournament_list[i].startDateTime);
             let back = this.add.image(540, 300 + i*400, bJoin ? 'TournamentDetailBlack' : 'TournamentDetailOrange');
-            let text = this.add.text(540,320 + i*400, "BAŞLANGIÇ: " + getDateTimeString(time) + "\n" + "KATILIM JETONU: " + tournament_list[i].joiningFee + " JETON\nKATILIM PUAN: " + 100 + " PUANI\nÖDÜL: " + tournament_list[i].prize + " PUAN", { fixedWidth: 800, fixedHeight: 200, align:'center' })
+            let text = this.add.text(540,320 + i*400, "BAŞLANGIÇ: " + getDateTimeString(time) + "\n" + "KATILIM JETONU: " + tournament_list[i].joiningFee + " JETON\nKATILIM PUANI: " + 100 + " PUAN\nÖDÜL: " + tournament_list[i].prize + " PUAN", { fixedWidth: 800, fixedHeight: 200, align:'center' })
             .setStyle({
                 fontSize: '40px',
                 fontFamily: 'RR',
