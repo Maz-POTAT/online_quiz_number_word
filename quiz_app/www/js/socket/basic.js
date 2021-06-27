@@ -213,15 +213,15 @@ Client.socket.on('rewarded',function(data){
     let activeScene = game.scene.getScenes(true)[0];
     if(data.heart != 0)
     {
-        toast_error(activeScene, 'You earned\n' + data.heart + ' can');
+        toast_error(activeScene, data.heart + ' can kazandınız');
     }
     else if(data.point != 0)
     {
-        toast_error(activeScene, 'You earned\n' + data.point + ' puan');
+        toast_error(activeScene, data.point + ' puan kazandınız');
     }
     else if(data.coin != 0)
     {
-        toast_error(activeScene, 'You earned\n' + data.coin + ' jeton');
+        toast_error(activeScene, data.coin + ' jeton kazandınız');
     }
 });
 

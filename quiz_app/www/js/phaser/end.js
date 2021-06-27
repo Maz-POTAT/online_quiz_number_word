@@ -225,7 +225,7 @@ class EndScreen extends Phaser.Scene{
                             else
                                 cur_point = 100;
                         }
-                        this.gameFinishText = this.add.text(540,game_type == "battle" ? 700 : 890, bWin ? 'KAZANDIN!' : 'KAYBETTİN!', { fixedWidth: 700, fixedHeight: 120, align:'center' })
+                        this.gameFinishText = this.add.text(540,game_type == "battle" ? 700 : 930, bWin ? 'KAZANDIN!' : 'KAYBETTİN!', { fixedWidth: 700, fixedHeight: 120, align:'center' })
                         .setStyle({
                             fontSize: '120px',
                             fontFamily: 'RR',
@@ -527,13 +527,13 @@ class EndScreen extends Phaser.Scene{
                 this.graphics = this.add.graphics();
                 this.graphics.fillStyle(0xfa5c00, 1);
                 this.graphics.fillRoundedRect(180,334 + 132*i,760,128, 10);
-                this.rankNameText = this.add.text(190, 400 + 132*i, winner_name_list[i], {
+                this.rankNameText = this.add.text(190, 400 + 132*i, userData.userName, {
                     fontFamily: 'RR',
                     fontWeight: 'bold',
                     fontSize: '80px',
                     color: "#106ead",
                 }).setOrigin(0, 0.5);
-                this.rankPointText = this.add.text(890, 400 + 132*i, winner_point_list[i], {
+                this.rankPointText = this.add.text(890, 400 + 132*i, cur_point, {
                     fontFamily: 'RR',
                     fontWeight: 'bold',
                     fontSize: '80px',

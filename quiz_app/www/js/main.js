@@ -332,7 +332,7 @@ var worker = new Worker(
     onmessage = function(event){    //This will be called when worker.postMessage is called in the outside code.
         let arrayNumbers = event.data.arrayNumbers;
         let resultNumber = event.data.resultNumber;
-        let resultText = solve_numbers(arrayNumbers, resultNumber, true);
+        let resultText = solve_numbers(arrayNumbers, resultNumber, false);
         postMessage(resultText);    //Send the result to the outside code.
     };
     `
